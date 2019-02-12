@@ -103,15 +103,15 @@ Many of these DoS attacks are easy to identify and block by only checking the so
 
 A DDoS starts with the hacker first spreading malicious softwares called malware with the intention to infect an army of Internet-connected devices, named zombie computers, with backdoors running in background and waiting for commands from a Command and Control (C\&C) server, as shown in Figure \ref{fig:DDoS-arch}, configuring a network of zombies called botnet.
 
-After many devices invected, the hacker initiates a DDoS through the C\&C, which is responsible to spread the attack command over the botnet, and each zombie perfoms the attack by requesting some service over the network to the target infrastructure. It becomes the defence much more difficult since blocking one IP, see Figure \ref{fig:DDoS-arch}, has almost no effect because of the massive amount of attacking points spread over the Internet.
+After many devices infected, the hacker initiates a DDoS through the C\&C, which is responsible to spread the attack command over the botnet, and each zombie performs the attack by requesting some service over the network to the target infrastructure. It becomes the defense much more difficult since blocking one IP, see Figure \ref{fig:DDoS-arch}, has almost no effect because of the massive amount of attacking points spread over the Internet.
 
-DDoS is also much more powerfull than a simple DoS because it multiplies the capacity of sending fake request to the target, the massive amount of available resources enables requests with signatures very close to genuine requests, and it can be implemented with no central point of C\&C, making the interruption of an attack much more difficult.
+DDoS is also much more powerful than a simple DoS because it multiplies the capacity of sending fake request to the target, the massive amount of available resources enables requests with signatures very close to genuine requests, and it can be implemented with no central point of C\&C, making the interruption of an attack much more difficult.
 
 In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS by ... \emph{descrever os tipos principais de classificação: degree of automation, exploration of vulnerability, attack rate dynamic (ARD) and attack impact, além de comentá-las brevemente. De preferência, adicionar uma imagem das classificações dos autores}.
 
 We focus the analysis of our simulations in DDoS with ... \emph{comentar as classes escolhidas para serem analisadas no trabalho, com exceção das classes DA e ARD que terão suas subseções específicas por serem as mais importantes. Nota: Algumas classes não tem muito o que falar. Apenas citar e justificar simplesmente}.
 
-Following, the subsections \ref{sec:da} and \ref{sec:ard} respectively describe in more details the mechanisms of DA and ATD analysed in our simulation.
+Following, the subsections \ref{sec:da} and \ref{sec:ard} respectively describe in more details the mechanisms of DA and ATD analyzed in our simulation.
 
 \subsection{\uppercase{Degree of automation}} \label{sec:da}
 
@@ -133,7 +133,7 @@ In order to preserve the manual control of the attack, in section \ref{sec:prote
 
 \subsection{\uppercase{Attack rate dynamics}} \label{sec:ard}
 
-A DDoS can also follow different dynamics depending on the duration, form, and distribution of the traffic in the stream of superfluos requests, where the more similar its signature is to a genuine request, the more difficult it is to detect the DDoS. A taxonomy with two main classes of ARD patterns are described in \cite{Liu:2012}.
+A DDoS can also follow different dynamics depending on the duration, form, and distribution of the traffic in the stream of superfluous requests, where the more similar its signature is to a genuine request, the more difficult it is to detect the DDoS. A taxonomy with two main classes of ARD patterns are described in \cite{Liu:2012}.
 
 % explicar em maiores detalhes cada uma das grandes classes, bem como suas consequências e justificar quais serão utilizadas nas simulações.
 
