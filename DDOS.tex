@@ -2449,11 +2449,23 @@ Using Pulsating DDoS mechanism (Figure 8 and Figure 10), it can be noticed that 
 
 \section{\uppercase{Protection against mitigation}} \label{sec:protection}
 
-\emph{Reescrever seção apresentando o método de proteção contra contra-ataque. Utilize diagramas ou desenhos para apresentar a ideia e não mostre nenhum código de implementação. A proposta deve mostrar que é capaz de esconder a topologia da rede, mesmo que um zombie seja detectado e sua informação parcial da rede seja descoberta.}
+%\emph{Reescrever seção apresentando o método de proteção contra contra-ataque. Utilize diagramas ou desenhos para apresentar a ideia e não mostre nenhum código de implementação. A proposta deve mostrar que é capaz de esconder a topologia da rede, mesmo que um zombie seja detectado e sua informação parcial da rede seja descoberta.}
 
-%If a node detects that it’s parent is missing, it should start the election process to decide a new one. In the addopted strategy, the oldest child of the missing parent takes the place as a new parent. This is made by the following algorithm (pseudocode):
+If a node detects that it’s parent is missing, it should start the election process to decide a new one. In the addopted strategy, the oldest child of the missing parent takes the place as a new parent, as exemplified in the figures below.
 
-%By obtaining the timestamp from the system clock, the method avoids an invader from fakeing it’s time to seem older, and then being able to be elected more easily to substitute a missing parent. In this way, the invader could raise hierarchicaly in the topology and having a huge part of the tree as it’s descendent, thus being able to stop sending traffic to this part of the botnet, or sabbotage it.
+By obtaining the timestamp from the system clock, the method avoids an invader from faking it’s time to seem older, and then being able to be elected more easily to substitute a missing parent. In this way, the invader could raise hierarchically in the topology and get a huge part of the tree as it’s descendent, thus being able to stop sending traffic to this part of the botnet, or sabotage it.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/missing_node.png}
+  \caption{Parent node fails and its children notice it.}
+  \label{fig:election}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/replaced_node.png}
+  \caption{Node labeled as Children 2 was elected the oldest and replaces the missing parent.}
+  \label{fig:election}
+\end{figure}
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
