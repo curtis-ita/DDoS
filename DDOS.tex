@@ -96,9 +96,44 @@ Usually, the most common method of attack occurs when the hacker floods a networ
 
 Many of these DoS attacks are easy to identify and block by only checking the source of the requests. Because of this, hackers usually use DDoS, which implements distributed computing to coordenate multiple attackers from different sources to send malicious traffic to a targeted server.
 
-\begin{figure}[h]
+\begin{figure}[htb]
 	\centering
-	\includegraphics[width=.9\linewidth]{img/DDoS-arch}
+  \resizebox{0.45\textwidth}{!}{
+  \begin{tikzpicture}[node distance=10mm,
+    every node/.style={fill=white, font=\footnotesize, minimum width=2.6cm},
+    align=center,
+    ]
+    % retangulo
+    \draw[very thin]  (4,2) rectangle (8,-6.5) node[below, xshift=-2cm, yshift=-0.2cm] {Internet devices};
+    
+    % imagens svg
+    \node[label={Hacker}] (hacker) {\includegraphics[scale=1]{"img/standing man icon"}};
+    \node[label=below:{C\&C}, right of=hacker, xshift=1cm, yshift=-2cm] (cc) {\includegraphics[scale=1]{"img/terminal"}};
+    
+    \node[right of=cc, xshift=3cm] (infectR) {\includegraphics[scale=0.8]{"img/terminal"}};
+    \node[above of=infectR, yshift=0.5cm] (infectA1) {\includegraphics[scale=0.6]{"img/pda"}};
+    \node[above of=infectA1, yshift=0.5cm] (infectA2) {\includegraphics[scale=0.8]{"img/RF modem"}};
+    \node[below of=infectR, yshift=-0.5cm] (infectB1) {\includegraphics[scale=0.8]{"img/laptop"}};
+    \node[label=below:{Infected devices}, below of=infectB1, yshift=-0.5cm] (infectB2) {\includegraphics[scale=0.8]{"img/terminal"}};
+    
+    \node[label=below:{Company's \\infrastucture}, right of=infectR, xshift=3cm] (router) {\includegraphics[scale=0.9]{"img/router in bldg"}};
+    
+    % setas
+    \draw[<->, thick] (hacker) -- (cc);
+    
+    \draw[->, dashed, thick] (cc) -- (infectR);
+    \draw[->, dashed, thick] (cc) -- (infectA1);
+    \draw[<->, thick] (cc) -- (infectA2);
+    \draw[red!70, <->, thick] (cc) -- (infectB1);
+    \draw[->, dashed, thick] (cc) -- (infectB2);
+    
+    \draw[<->, thick] (router) -- (infectR);
+    \draw[<->, thick] (router) -- (infectA1);
+    \draw[<->, thick] (router) -- (infectA2);
+    \draw[red!70, <->, thick] (router) -- (infectB1);
+    \draw[<->, thick] (router) -- (infectB2);
+  \end{tikzpicture}
+  }
 	\caption{Arquitecture example of a DDoS botnet with one zombie, in red, blocked by the target firewall.}
 	\label{fig:DDoS-arch}
 \end{figure}
