@@ -2470,17 +2470,73 @@ If a node detects that it’s parent is missing, it should start the election pr
 
 By obtaining the timestamp from the system clock, the method avoids an invader from faking it’s time to seem older, and then being able to be elected more easily to substitute a missing parent. In this way, the invader could raise hierarchically in the topology and get a huge part of the tree as it’s descendent, thus being able to stop sending traffic to this part of the botnet, or sabotage it.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{img/missing_node.png}
-  \caption{Parent node fails and its children notice it.}
-  \label{fig:election}
-\end{figure}
+\resizebox{180}{!}{%
+    \begin{tikzpicture}[
+        every node/.style={
+        thick, inner sep=0.1em, text centered, text width=4em}
+    ]
+    \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
+    \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
+    \tikzstyle {blue_border} = [circle, draw=blue!65]
+    \tikzstyle {text_box} = [circle, draw=white, text=black]
+    
+    \node [blue_circ] (gp) at (-2,5.5) {grand parent};
+    \node [red_circ] (p) at (0.5,3) {parent};
+    \node [blue_circ] (c1) at (-2,0) {child 1};
+    \node [blue_circ] (c2) at (0,0) {child 2};
+    \node [blue_circ] (c3) at (4,0) {child 3};
+    \node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
+    \node [text_box] (sus_2) at (2, 0) {\Huge ...};
+    
+    \node (left) at (-4.5,3) {};
+    \node (root) at (-3.5,7) {};
+    
+    % \draw  (gp) edge (left);
+    \draw  (gp) edge (sus_1);
+    \draw  (gp) edge (p);
+    \draw  (p) edge (c1);
+    \draw  (p) edge (c2);
+    \draw  (p) edge (c3);
+    \draw  (root) edge (gp);
+    
+    \draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
+    
+    \end{tikzpicture} 
+}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{img/replaced_node.png}
-  \caption{Node labeled as Children 2 was elected the oldest and replaces the missing parent.}
-  \label{fig:election}
-\end{figure}
+\resizebox{180}{!}{%
+    \begin{tikzpicture}[
+        every node/.style={
+        thick, inner sep=0.1em, text centered, text width=4em}
+    ]
+    \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
+    \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
+    \tikzstyle {blue_border} = [circle, draw=blue!65]
+    \tikzstyle {text_box} = [circle, draw=white, text=black]
+    
+    \node [blue_circ] (gp) at (-2,5.5) {grand parent};
+    \node [blue_circ] (p) at (0.5,3) {child 2};
+    \node [blue_circ] (c1) at (-2,0) {child 1};
+    \node [blue_border] (c2) at (0,0) {};
+    \node [blue_circ] (c3) at (4,0) {child 3};
+    \node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
+    \node [text_box] (sus_2) at (2, 0) {\Huge ...};
+    
+    \node (left) at (-4.5,3) {};
+    \node (root) at (-3.5,7) {};
+    
+    % \draw  (gp) edge (left);
+    \draw  (gp) edge (sus_1);
+    \draw  (gp) edge (p);
+    \draw  (p) edge (c1);
+    \draw  (p) edge (c2);
+    \draw  (p) edge (c3);
+    \draw  (root) edge (gp);
+    
+    % \draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
+    
+    \end{tikzpicture} 
+}
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
