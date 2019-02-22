@@ -144,9 +144,23 @@ After many devices infected, the hacker initiates a DDoS through the C\&C, which
 
 DDoS is also much more powerful than a simple DoS because it multiplies the capacity of sending fake request to the target, the massive amount of available resources enables requests with signatures very close to genuine requests, and it can be implemented with no central point of C\&C, making the interruption of an attack much more difficult.
 
-In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS by ... \emph{descrever os tipos principais de classificação: degree of automation, exploration of vulnerability, attack rate dynamic (ARD) and attack impact, além de comentá-las brevemente. De preferência, adicionar uma imagem das classificações dos autores}.
+In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS attacks by the following categories: Degree of Automation (DA), Exploited Weakness to Deny Service (EW), Source Address Validity (SAV), Attack Rate Dynamics (ARD), Possibility of Characterization (PC), Persistence of Agent Set (PAS), Victim Type (VT) and Impact on the Victim (IV).
 
-We focus the analysis of our simulations in DDoS with ... \emph{comentar as classes escolhidas para serem analisadas no trabalho, com exceção das classes DA e ARD que terão suas subseções específicas por serem as mais importantes. Nota: Algumas classes não tem muito o que falar. Apenas citar e justificar simplesmente}.
+According to this classification, our proposed metodology has:
+- Semi-Automatic (DA): the attack is initiated by the user command, and the rest of the process is automatic;
+- Brute Force (EW): send a high volume of seemingly legitimate requests to exhaust the victim's capacity;
+- Valid Source Address (SAV): attacker didn't use a spoofed source address;
+- Constante or Variable Rate (ARD): both dynamics were tested;
+- Non-Characterizable (PC): no specific protocol or application from the victim was chosen to be targeted. The attack only intended to consume network bandwidth;
+- Constant Agent Set (PA): once that the nodes of the botnet are mobilized, they become permanent participants in each of the subsequent attacks;
+- Network Attack (VT): the intention was to exhaust a bandwidth of the target;
+- Disruptive (IV): The attacks intended to disrupt the target's resources, even though we did not use a botnet with enough processing power to cause such damage;
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{img/taxonomy.png}
+  \caption{Taxonomy of DDoS attacks.}
+  \label{fig:boat1}
+\end{figure}
 
 Following, the subsections \ref{sec:da} and \ref{sec:ard} respectively describe in more details the mechanisms of DA and ATD analyzed in our simulation.
 
