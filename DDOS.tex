@@ -2443,14 +2443,12 @@ Using Pulsating DDoS mechanism (Figure 8 and Figure 10), it can be noticed that 
 
 \section{\uppercase{Protection against mitigation}} \label{sec:protection}
 
-%\emph{Reescrever seção apresentando o método de proteção contra contra-ataque. Utilize diagramas ou desenhos para apresentar a ideia e não mostre nenhum código de implementação. A proposta deve mostrar que é capaz de esconder a topologia da rede, mesmo que um zombie seja detectado e sua informação parcial da rede seja descoberta.}
-
 If a node detects that it’s parent is missing, it should start the election process to decide a new one. In the adopted strategy, as exemplified in the figures below, the oldest child of the missing parent takes it's place.
 
-\begin{figure} [htb]
+\begin{figure}[htb]
     \centering
     
-    \resizebox{180}{!}{%
+    \resizebox{.45\textwidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
             thick, inner sep=0.1em, text centered, text width=4em}
@@ -2483,14 +2481,14 @@ If a node detects that it’s parent is missing, it should start the election pr
         
         \end{tikzpicture} 
     }
-    \caption{Node fails and its children detect the absence}
+    \caption{Node fails and its children detect the absence.}
     \label{Fig:Missing}
 \end{figure}
 
-\begin{figure} [htb]
+\begin{figure}[htb]
     \centering
     
-    \resizebox{180}{!}{%
+    \resizebox{.45\textwidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
             thick, inner sep=0.1em, text centered, text width=4em}
