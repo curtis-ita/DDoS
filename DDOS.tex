@@ -184,19 +184,31 @@ In order to preserve the manual control of the attack, in section \ref{sec:prote
 
 A DDoS can also follow different dynamics depending on the duration, form, and distribution of the traffic in the stream of superfluous requests, where the more similar its signature is to a genuine request, the more difficult it is to detect the DDoS. A taxonomy with two main classes of ARD patterns are described in \cite{Liu:2012}.
 
-% explicar em maiores detalhes cada uma das grandes classes, bem como suas consequências e justificar quais serão utilizadas nas simulações.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.5\linewidth]{img/FDoSwaves}
+	\caption{Typical FDoS waveforms.}
+	\label{fig:fdosWave}
+\end{figure}
 
-%First, Flood DoS (FDoS): Keep sending a high rate traffic to the victim. The traffic of requests can follow different dynamics, commonly establishing constant, increasing or fluctuating rate stream:
+Flood DoS (FDoS), as showed in Figure \ref{fig:fdosWave}, has three typical types of a waveform based on the ARD: classical constant rate flood, increasing rate flood, fluctuating rate flood. In constant rate, the botnet attacks the target with full force; in increasing rate flood, the botnet gradually increases the attack rate resulting to slow exhaustion of victim's resources; and in fluctuating rate, the botnet performs any other waveform, including occasional changes.
 
-%Figure 1 em vetor
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img/LDoSwaves}
+	\caption{Typical LDoS waveforms.}
+	\label{fig:ldos}
+\end{figure}
 
-% Second, Low Rate DoS (LDos): send short bursts of traffic, with a duration predetermined maliciously and a frequency related to the retransmission timeout (RTO) of the packages in the network, so that the victim stays in a superfluous retransmission trap. Common dynamics of LDoS are the square-wave, two rate square-wave and sine waveforms:
+Low Rate DoS (LDos) is similar to fluctuating rate flood but it sends just one short burst, usually a square wave pattern, every each $T$ period. For large botnets, $T$ may even be long in order to difficult the detection of the malicious attack. The Figure \ref{fig:ldos} presents some typical different patterns of LDoS.
 
-%Figure 2 em vetor
-
-%In this work, the two common mechanisms of DoS will be implemented: Continuous stream DDoS and Pulse wave DDoS. Then, each mechanism will be used in two topologies: tree and list. Finally, we’ll compare their performances in disrupting the services and causing package loss in the targeted server.
+In this work, we analyze two main patters of a ARD: a continuous stream and a pulse waveform. The first is very similar to the constant rate FDoS and the second is closely related to LDoS pattern. However, it is important to note that the propagation delay of a command from the C\&C into the botnet may drastically change the waveform, resulting in interesting patterns.
 
 \section{\uppercase{Simulations of DDoS}} \label{sec:simulation}
+
+In this work, the two common mechanisms of ARD described in Section \ref{sec:ard} are analyzed, each using two network topologies: a tree-based and list-based networks.
+
+ Finally, we’ll compare their performances in disrupting the services and causing package loss in the targeted server.
 
 \emph{Reescrever a seção explicando as simulações esolhidas no trabalho e como foram desenhadas, porém sem apresentar nenhuma informação sobre sua implementação. A implementação e manual de uso das ferramentas desenvolvidas não são relevantes e não devem estar contidas no artigo. Caso o leitor queira saber sobre a implementação e uso, irá verificar as informações no Git. Adicionar uma frase indicando o endereço onde o leitor poderá encontrar as informações de uso e todos os resultados das simulações}
 
