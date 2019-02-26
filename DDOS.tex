@@ -50,20 +50,14 @@
 	
 \title{DDoS Mechanisms Simulations and Performance Comparison}
 
-\author{\authorname{Bruno Neves, Filipe Mourão, Lucas Jorge, Rahyan Azin, Juliana Bezzera and Vitor Curtis}
-	\affiliation{Department of Computer Science Department, ITA, São José dos Campos, Brazil}
-	\email{\{neves.brunobr, filipemleite94, lucas1jorge, rahyan.azin\}@gmail.com, \{juliana, curtis\}@ita.br}
-}
+%\author{\authorname{Bruno Neves, Filipe Mourão, Lucas Jorge, Rahyan Azin, Juliana de Melo Bezerra and Vitor Venceslau Curtis}
+%	\affiliation{Department of Computer Science Department, ITA, São José dos Campos, Brazil}
+%	\email{\{neves.brunobr, filipemleite94, lucas1jorge, rahyan.azin\}@gmail.com, \{juliana, curtis\}@ita.br}
+%}
 
-\keywords{DDoS, botnet, election, network topology.}
+\keywords{DDoS, Botnet, Election, Network Topology.}
 
 \abstract{The concern about cyber security has attracted attention by organizations and public services over the last few years due to the contemporary importance of confidentiality, integrity, and availability of services and sensitive data. In contrast, many recent episodes of cyber attacks causing strong impact were performed using extremely simple techniques and taking advantage of the hidden weaknesses of current systems. This article has the main purpose to motivate the academy to mitigate such unexpected potential cyber attacks from the attacker's perspective, exposing the latent weakness of current systems, since the majority of such papers focus only on the defense perspective. We analyze the potential impact of Denial of Service (DoS), a very popular cyber attack to affect the availability of a victim server, through different mechanisms and topologies. Specifically, we simulate and analyze the impact of Distributed DoS (DDoS), a more powerful kind of DDoS, when using the List and Binary Tree topologies with Continuous or Pulsating stream of requests, and finally, we introduce a simple new technique to improve the DDoS against mitigation.
-% Vitor: O foco original do artigo é sobre uma comparação de performance entre duas topologias de botnet para ataques DDoS.
-% Vitor: Justificar a escolha das duas topologias, e comentar os dois tipos de pulsos.
-% The effect of the delay in network propagation while coordinating a wave attack in the botnet is made evident when comparing the mechanisms, and the package loss in the attacked server could be observed in the simulations.
-% Vitor: achado da pesquisa que deve ser explorado nos resultdos. No abstract é muito estranho, pois falta todo o contexto da pesquisa.
-%This type of experience is not easy to find in academic studies, since they usually focus on defense and mitigation of attacks, and thus it offers a valuable didactic learning.
-% Vitor: acho que a motivação do trabalho pode ser alterada para a relevância do impacto de DoS.
 }
 
 \onecolumn \maketitle \normalsize \setcounter{footnote}{0} \vfill
@@ -144,25 +138,28 @@ After many devices infected, the hacker initiates a DDoS through the C\&C, which
 
 DDoS is also much more powerful than a simple DoS because it multiplies the capacity of sending fake request to the target, the massive amount of available resources enables requests with signatures very close to genuine requests, and it can be implemented with no central point of C\&C, making the interruption of an attack much more difficult.
 
-In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS attacks by the following categories: Degree of Automation (DA), Exploited Weakness to Deny Service (EW), Source Address Validity (SAV), Attack Rate Dynamics (ARD), Possibility of Characterization (PC), Persistence of Agent Set (PAS), Victim Type (VT) and Impact on the Victim (IV).
-
-According to this classification, our proposed metodology has:
-- Semi-Automatic (DA): the attack is initiated by the user command, and the rest of the process is automatic;
-- Brute Force (EW): send a high volume of seemingly legitimate requests to exhaust the victim's capacity;
-- Valid Source Address (SAV): attacker didn't use a spoofed source address;
-- Constante or Variable Rate (ARD): both dynamics were tested;
-- Non-Characterizable (PC): no specific protocol or application from the victim was chosen to be targeted. The attack only intended to consume network bandwidth;
-- Constant Agent Set (PA): once that the nodes of the botnet are mobilized, they become permanent participants in each of the subsequent attacks;
-- Network Attack (VT): the intention was to exhaust a bandwidth of the target;
-- Disruptive (IV): The attacks intended to disrupt the target's resources, even though we did not use a botnet with enough processing power to cause such damage;
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{img/taxonomy}
-  \caption{Taxonomy of DDoS attacks.}
-  \label{fig:boat1}
+\begin{figure}[htb]
+	\includegraphics[width=\linewidth]{img/taxonomy}
+	\caption{Taxonomy of DDoS attacks.}
+	\label{fig:taxonomy}
 \end{figure}
 
-Following, the subsections \ref{sec:da} and \ref{sec:ard} respectively describe in more details the mechanisms of DA and ATD analyzed in our simulation.
+In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS attacks by the following main categories: Degree of Automation (DA), Exploited Weakness to Deny Service (EW), Source Address Validity (SAV), Attack Rate Dynamics (ARD), Possibility of Characterization (PC), Persistence of Agent Set (PAS), Victim Type (VT) and Impact on the Victim (IV), as described by Figure \ref{fig:taxonomy}. For more information about the details of this taxonomy and the characteristics of each component, please, see \cite{Mirkovic:2004} and \cite{Bhardwaj:2016}.
+
+According to this classification, our proposed methodology has the following characteristics:
+\begin{description}
+	\item[Semi-Automatic (DA)] The attack is initiated by the user command, while all the other processes are automatic;
+	\item[Brute Force (EW)] It sends a high volume of seemingly legitimate requests to exhaust the victim's capacity;
+	\item[Valid Source Address (SAV)] The attacker does not use a spoofed source address;
+	\item[Constante or Variable Rate (ARD)] Both dynamics are tested;
+	\item[Non-Characterizable (PC)] No specific protocol or application from the victim was chosen to be targeted. The attack only intends to consume network bandwidth;
+	\item[Constant Agent Set (PA)] When a node is infected, it becomes a permanent participant in each of the subsequent attacks;
+	\item[Network Attack (VT)] The attacks mean to exhaust the bandwidth of a target;
+	\item[Disruptive (IV)] The attack has the object to disrupt the entire target's resources, even though sometimes it cannot accomplish it.
+\end{description}
+
+
+Among these characteristics, the Degree of Automation and Attack Rate Dynamics are crucial in our experiments once our goal is to measure the efficiency of a botnet. Thus, the following subsections \ref{sec:da} and \ref{sec:ard} respectively describe in more details the mechanisms of DA and ARD analyzed in our simulations.
 
 \subsection{Degree of automation} \label{sec:da}
 
@@ -2470,73 +2467,85 @@ If a node detects that it’s parent is missing, it should start the election pr
 
 By obtaining the timestamp from the system clock, the method avoids an invader from faking it’s time to seem older, and then being able to be elected more easily to substitute a missing parent. In this way, the invader could raise hierarchically in the topology and get a huge part of the tree as it’s descendent, thus being able to stop sending traffic to this part of the botnet, or sabotage it.
 
-\resizebox{180}{!}{%
-    \begin{tikzpicture}[
-        every node/.style={
-        thick, inner sep=0.1em, text centered, text width=4em}
-    ]
-    \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
-    \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
-    \tikzstyle {blue_border} = [circle, draw=blue!65]
-    \tikzstyle {text_box} = [circle, draw=white, text=black]
-    
-    \node [blue_circ] (gp) at (-2,5.5) {grand parent};
-    \node [red_circ] (p) at (0.5,3) {parent};
-    \node [blue_circ] (c1) at (-2,0) {child 1};
-    \node [blue_circ] (c2) at (0,0) {child 2};
-    \node [blue_circ] (c3) at (4,0) {child 3};
-    \node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
-    \node [text_box] (sus_2) at (2, 0) {\Huge ...};
-    
-    \node (left) at (-4.5,3) {};
-    \node (root) at (-3.5,7) {};
-    
-    % \draw  (gp) edge (left);
-    \draw  (gp) edge (sus_1);
-    \draw  (gp) edge (p);
-    \draw  (p) edge (c1);
-    \draw  (p) edge (c2);
-    \draw  (p) edge (c3);
-    \draw  (root) edge (gp);
-    
-    \draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
-    
-    \end{tikzpicture} 
-}
+\begin{figure}
+	
+	\resizebox{.45\textwidth}{!}{
+		\begin{tikzpicture}[
+		every node/.style={
+			thick, inner sep=0.1em, text centered, text width=4em}
+		]
+		\tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
+		\tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
+		\tikzstyle {blue_border} = [circle, draw=blue!65]
+		\tikzstyle {text_box} = [circle, draw=white, text=black]
+		
+		\node [blue_circ] (gp) at (-2,5.5) {grand parent};
+		\node [red_circ] (p) at (0.5,3) {parent};
+		\node [blue_circ] (c1) at (-2,0) {child 1};
+		\node [blue_circ] (c2) at (0,0) {child 2};
+		\node [blue_circ] (c3) at (4,0) {child 3};
+		\node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
+		\node [text_box] (sus_2) at (2, 0) {\Huge ...};
+		
+		\node (left) at (-4.5,3) {};
+		\node (root) at (-3.5,7) {};
+		
+		% \draw  (gp) edge (left);
+		\draw  (gp) edge (sus_1);
+		\draw  (gp) edge (p);
+		\draw  (p) edge (c1);
+		\draw  (p) edge (c2);
+		\draw  (p) edge (c3);
+		\draw  (root) edge (gp);
+		
+		\draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
+		\end{tikzpicture} 
+	}
+	
+	\caption{Parent node fails and its children notice it.}
+	\label{fig:election}
+\end{figure}
 
-\resizebox{180}{!}{%
-    \begin{tikzpicture}[
-        every node/.style={
-        thick, inner sep=0.1em, text centered, text width=4em}
-    ]
-    \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
-    \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
-    \tikzstyle {blue_border} = [circle, draw=blue!65]
-    \tikzstyle {text_box} = [circle, draw=white, text=black]
-    
-    \node [blue_circ] (gp) at (-2,5.5) {grand parent};
-    \node [blue_circ] (p) at (0.5,3) {child 2};
-    \node [blue_circ] (c1) at (-2,0) {child 1};
-    \node [blue_border] (c2) at (0,0) {};
-    \node [blue_circ] (c3) at (4,0) {child 3};
-    \node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
-    \node [text_box] (sus_2) at (2, 0) {\Huge ...};
-    
-    \node (left) at (-4.5,3) {};
-    \node (root) at (-3.5,7) {};
-    
-    % \draw  (gp) edge (left);
-    \draw  (gp) edge (sus_1);
-    \draw  (gp) edge (p);
-    \draw  (p) edge (c1);
-    \draw  (p) edge (c2);
-    \draw  (p) edge (c3);
-    \draw  (root) edge (gp);
-    
-    % \draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
-    
-    \end{tikzpicture} 
-}
+\begin{figure}
+	
+	\resizebox{.45\textwidth}{!}{
+		\begin{tikzpicture}[
+		every node/.style={
+			thick, inner sep=0.1em, text centered, text width=4em}
+		]
+		\tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
+		\tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
+		\tikzstyle {blue_border} = [circle, draw=blue!65]
+		\tikzstyle {text_box} = [circle, draw=white, text=black]
+		
+		\node [blue_circ] (gp) at (-2,5.5) {grand parent};
+		\node [blue_circ] (p) at (0.5,3) {child 2};
+		\node [blue_circ] (c1) at (-2,0) {child 1};
+		\node [blue_border] (c2) at (0,0) {};
+		\node [blue_circ] (c3) at (4,0) {child 3};
+		\node [text_box] (sus_1) at (-4.5, 3) {\Huge ...};
+		\node [text_box] (sus_2) at (2, 0) {\Huge ...};
+		
+		\node (left) at (-4.5,3) {};
+		\node (root) at (-3.5,7) {};
+		
+		% \draw  (gp) edge (left);
+		\draw  (gp) edge (sus_1);
+		\draw  (gp) edge (p);
+		\draw  (p) edge (c1);
+		\draw  (p) edge (c2);
+		\draw  (p) edge (c3);
+		\draw  (root) edge (gp);
+		
+		% \draw[-latex, draw=blue!60, line width=3pt] (1.1,1) -- (1.2,1.7);
+		\end{tikzpicture} 
+	}
+	
+	\caption{Node labeled as "child 2" is elected the oldest and replaces the missing parent.}
+	\label{fig:election2}
+\end{figure}
+
+
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
