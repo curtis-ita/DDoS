@@ -206,64 +206,34 @@ In this work, we analyze two main patters of a ARD: a continuous stream and a pu
 
 \section{\uppercase{Simulations of DDoS}} \label{sec:simulation}
 
-In this work, the two common mechanisms of ARD described in Section \ref{sec:ard} are analyzed, each using two network topologies: a tree-based and list-based networks.
+In this work, the two common mechanisms of ARD described in Section \ref{sec:ard} are analyzed, each using two network topologies: a tree-based, where each node in the botnet has some children, and list-based network, where each node can forward an attack only to one next node.
 
- Finally, we’ll compare their performances in disrupting the services and causing package loss in the targeted server.
+In order to simulate the experiments, we implemented programs in GoLang supported by lightweight threads to achieve a high scale for the botnet simulation. Basically, the simulations are composed by three programs:
 
-\emph{Reescrever a seção explicando as simulações esolhidas no trabalho e como foram desenhadas, porém sem apresentar nenhuma informação sobre sua implementação. A implementação e manual de uso das ferramentas desenvolvidas não são relevantes e não devem estar contidas no artigo. Caso o leitor queira saber sobre a implementação e uso, irá verificar as informações no Git. Adicionar uma frase indicando o endereço onde o leitor poderá encontrar as informações de uso e todos os resultados das simulações}
+\begin{description}
+	\item[Server] It is basically the C\&C server, responsible for the botnet commands and for tracking when a node first joined the botnet;
+	\item[Client] It is the zombie node, a node in a botnet network, capable of autonomously discovering other zombies and handling attacks;
+	\item[Targeted Server] It represents the target infrastructure and stores the attack data for further analysis.
+\end{description}
 
-\emph{Na apresentação, foque nos conceitos principais das tomadas de decisão e tente generalizar o máximo possível as simulações para outros cenários. Novamente, não esqueça de justificar tudo o que for dito. Se alguma informação for adicionada na justificativa, apresente uma referência que seja um artigo publicado em periódico ou algo com maior valor acadêmico. Não cite site de empresas.}
+All programs communicate with each other by TCP/IP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed bt the botnet.
 
-%The project consists in evaluating different DDoS mechanisms performance through simulation in Windows with the goal of better understanding each form of attack and along with its advantages and disadvantages and the proposal of a new leader election protocol that, applied to botnets with tree topology, prevents possible botnets takeover. For that, 3 main applications were developed in Golang to simulate the process of a botnet creation and an attack. The programs are:
-%Vitor: pode citar que foi implementado em Golang e pode citar as configurações da máquina utilizada na seção resultados, para contextualizar os resultados.
+The records about the requests are tagged with timestamps in order to check the time it takes to achieve the target. It is also needed to check the bandwidth capability of each pair of network topology and ARD.
 
-%\begin{enumerate}
-%	\item Server: it is the C\&C server, and records the timestamp in which each node first joined the network and also handles nodes joining the botnet;
-%	\item Client: The so called “Zombie”, it is a node in a botnet graph, capable of parenting other nodes and handling attacks;
-%	\item HostileServer: The targeted server. It is necessary for storing the attack data so it can be analyzed later.
-%\end{enumerate}
-
-%It was also developed a batch file for faster simulation, a C++ application for pre-computing the results and a macro-powered excel sheet to analyze the results. The simulation variables necessary were the following:
-%- Number of nodes: The number of nodes in the botnet.
-%- Bandwidth per node: How many packages are sent per node per millisecond.
-%- Topology: Tree structures were implemented.
-%For simpler simulation, a list structure (particular case of tree) was used for simulating a multi-layered tree and the other option is a non-balanced binary tree.
-%- Type of attack: It could either be a simple flooding crescent attack or a coordinated attack (pulse like structure).
-
-% Não há necessidade de apresentar as informações em forma de código. Apresente a ideia sem código.
-%For passing messages and attacks the following data was considered enough:
-%\begin{lstlisting}[numbers=none, language=C++]
-%type Node struct{
-%ID int
-%T time.Time
-%IP string
-%Port int
-%}
-
-%type Message struct{
-%N Node
-%Command string
-%}
-%\end{lstlisting}
-
-%Not always the node information was of an actual node, sometimes they were only used for encoding necessary information, for example, sequence number, time to begin the attack. The message exchange flow is the following:
-
-%Table
-
-% Apresente um diagrama para explicar o fluxo da proposta de simulação ao invés das saídas do programa, que é dependente de implementação. Esta é uma das principais partes do artigo. Capriche na descrição da forma como foi sugerida a implementação e sua relação com o que foi dito até agora.
-
-%So the flow of an session is the following:
-%- The server starts and checks if there is a file containing a past execution state (given IDs and mapping between each ID and the joining time), if there is it uses that data to rebuild its past state.
-%- Each client node also checks if it was already assigned an ID in a past session, if it was it asks the server to just rejoin the botnet, else it also asks for an ID.
-%- The joining logic is the following, if the structure is that of a list the server just sends the new node the address of the last node that joined the network, else, it sends the address of the botnet root, then the node proceeds to ask the received node if it can be its child, if the node has less than two children it accepts, else, it sends the node randomly one of its two children so it can ask then.
-%- Now it is time for the attack: the server sends the root of the botnet the order to attack, each botnet node is then, responsible for transmitting the attack order to its children, the attack message contains the target’s address, the type of attack and, if it is a pulse-like attack it also sends the time for beginning the attack.
-%- The target then just receives the package and writes it to an output file (log).
+All the codes are available open-source for further researches. Please, contact the authors for getting access to it.
 
 \section{\uppercase{Evaluation of simulations}} \label{sec:evaluation}
 
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. We prefer to focus only in the package loss 
+
+The results presented in this section were 
+
 \emph{Ainda não consegui tempo para ver esta seção. Ignorar esta seção por enquanto.}
 
-After testing both topologies, tree and list, with the two ARD mechanisms, continuous stream and pulse wave, the package loss in the targeted server was observed. The following results were obtained:
+After testing both topologies, tree and list, with the two ARD mechanisms, continuous stream and pulse wave, the package loss in the targeted server was observed. The tests were performed in different machines configurations, and the results were all similar. Thus, following, we present results from a single common machine configuration with Windows.
+
+just one result presenting the 
+A machine with Winodws machine The following results were obtained:
 
 \begin{figure}[htbp]
 	\centering
