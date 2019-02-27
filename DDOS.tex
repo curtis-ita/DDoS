@@ -233,25 +233,17 @@ All the codes are available open-source for further researches. Please, contact 
 
 \section{\uppercase{Evaluation of simulations}} \label{sec:evaluation}
 
-This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. Besides we performed many measurements of the simulations, we focus in this work only in the package loss once it presented the most representative results of the simulations.
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. Besides many measurements were obtained from the simulations, we focus in this work only in the package loss once it presents the most representative results of the simulations.
 
-% The results presented in this section were 
-
-% \emph{Ainda não consegui tempo para ver esta seção. Ignorar esta seção por enquanto.}
-
-% After testing both topologies, tree and list, with the two ARD mechanisms, continuous stream and pulse wave, the package loss in the targeted server was observed.
-The tests were performed in different machines configurations, and the results were all similar. Thus, we present results from a single common machine configuration with Windows. The following results were obtained:
-
+The tests were performed in different machines configurations and the results were all similar. In the following sections, we preferred to show the results from a single common machine configuration.
 
 \subsection{Contamination of zombies}
 
-In practice, in the star topology a central server will contaminate zombies around it in a tree-like structure. Then, we simulated the algorithm in a binary tree topology. Furthermore, to observe the effects of having a huge number of levels in the tree architecture with a reasonable number of nodes, we simulated a botnet with list structure, which in practice is unlikely to happen but is enough to observe results.
+In a real scenario, a central server of a star topology usually contaminates zombies around it in a tree-like structure. Thus, in order to simulate this approach, we simulate the system in a binary tree topology. Furthermore, to observe the effects of having a large number of levels in the tree architecture with a reasonable number of nodes, we use a botnet with list structure, which in practice is unlikely to happen but it is enough to observe results.
 
-In the infection phase, for a similar number of nodes, a list will present a bigger number of layers than a tree, and therefore a larger delay of propagation through the botnet. In the simulation, we used 100 nodes for the list implementation. For the binary tree, since the height tends to be proportional to $\log_2 n$, we used 500 nodes in the simulation to get more levels and make the results more observable:
+During the contamination phase, for a similar number of nodes, the list-based topology presents a bigger number of layers than a tree-based topology, implying in a larger delay of propagation through the botnet. Because of this, we use 100 nodes for the list implementations. For the binary tree topology, since the height tends to be proportional to $\log_2 n$, we use 500 nodes in the simulation to get more levels and make the effect of the topology clear in the results.
 
-Please notice that not all graphs are in the same scale. They were presented in this way to make the format of curves more evident.
-
-\begin{figure}[htbp]
+\begin{figure}[bp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -767,11 +759,11 @@ Please notice that not all graphs are in the same scale. They were presented in 
 	\end{axis}
 	\end{tikzpicture}
 	\normalsize
-	\caption{Delay to mobilize 500 nodes using constant DDoS in binary tree topology.}
+	\caption{Propagation delay within a botnet with 500 nodes using constant DDoS in binary tree topology.}
 	\label{fig:MobContBT}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -1287,11 +1279,11 @@ Please notice that not all graphs are in the same scale. They were presented in 
 	\end{axis}
 	\end{tikzpicture}
 	\normalsize
-	\caption{Delay to mobilize 500 nodes using pulse DDoS in binary tree topology.}
+	\caption{Propagation delay within a botnet with 500 nodes using pulse DDoS in binary tree topology.}
 	\label{fig:MobPulBT}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -1407,11 +1399,11 @@ Please notice that not all graphs are in the same scale. They were presented in 
 	\end{axis}
 	\end{tikzpicture}
 	\normalsize
-	\caption{Delay to mobilize 100 nodes using constant DDoS in List topology.}
+	\caption{Propagation delay within a botnet with 100 nodes using constant DDoS in list topology.}
 	\label{fig:MobContL}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[tbp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -1527,22 +1519,20 @@ Please notice that not all graphs are in the same scale. They were presented in 
 	\end{axis}
 	\end{tikzpicture}
 	\normalsize
-	\caption{Delay to mobilize 100 nodes using pulse DDoS in  List topology.}
+	\caption{Propagation delay within a botnet with 100 nodes using pulse DDoS in list topology.}
 	\label{fig:MobPulL}
 \end{figure}
 
-Using pulse DDoS mechanism (Figure \ref{fig:MobPulBT} and Figure \ref{fig:MobPulL}), it can be noticed that, in this simulation, almost all nodes attack at the same time (delay = 0), except for outliers that, for some unexpected fail or oscillation, do not attack immediately. With the constant DDoS mechanism (Figure \ref{fig:MobContBT} and Figure \ref{fig:MobContL}), the graphs show that the nodes are gradually mobilized by the attack wave. Particularly, in Figure 9 they form a perfect line, since the information in the list is passed from node to node with a similar delay.
+The results are presented in Figures \ref{fig:MobContBT}-\ref{fig:MobPulL}, and it is important to highlight that the graphs are in the same scale in order to make the shape of curves more evident.
+
+Using pulse DDoS mechanism, Figure \ref{fig:MobPulBT} and Figure \ref{fig:MobPulL}, it can be noticed that almost all nodes attack at the same time, delay near $0$ms, except for outliers that do not attack immediately for some unexpected fail or oscillation, a phenomena also present in a real network.
+
+The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure \ref{fig:MobContL}, show how the nodes are gradually mobilized by the attack wave, exposing the hierarchy of a network with many layers. Particularly, the propagation delay using constant DDoS and list topology, Figure \ref{fig:MobContL}, results in perfect straight line once the information in the list is passed from node to node with a similar delay.
 
 
-\subsection{Package loss in victim server}
+\subsection{Package loss in target server}
 
-In the graphs below, it is visible how the binary tree was much more effective in damaging the traffic of the victim. Even if we consider that the tree has 5 times more nodes than the list in the simulation (500 nodes versus 100 nodes) to give some more levels to the tree, the difference of the results is bigger than this proportion.
-
-This can be interpreted as a consequence of the smallest delay in propagating commands from the C\&C to the far nodes in the botnet for a smaller number of levels. In the list, even though the DDoS algorithm orders that all nodes attack at the same time, the delay of propagation makes the attacks reach the target asynchronously, therefore, very ineffectively.
-
-
-
-\begin{figure}[htbp]
+\begin{figure}[bp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -1701,7 +1691,7 @@ This can be interpreted as a consequence of the smallest delay in propagating co
 	\label{fig:ContBinTree}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[btp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -1815,7 +1805,7 @@ This can be interpreted as a consequence of the smallest delay in propagating co
 	\label{fig:PulBinTree}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[btp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -2216,7 +2206,7 @@ This can be interpreted as a consequence of the smallest delay in propagating co
 	\label{fig:ContList}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[btp]
 	\centering
 	\footnotesize
 	\begin{tikzpicture}[scale=0.9]
@@ -2457,8 +2447,13 @@ This can be interpreted as a consequence of the smallest delay in propagating co
 	\label{fig:PulList}
 \end{figure}
 
-As it can be seen in Figure \ref{fig:ContBinTree} and Figure \ref{fig:ContList}, in both topologies, tree and list, the constant rate DDoS presented a delay before achieving a stable rate of package loss. This is the time necessary to mobilize all the nodes in the botnet.
-On the other hand, Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList} show that the pulse DDoS presented a stable rate since the first attacks, given that the C\&C orders that all nodes attack at the same clock time.
+The graphs on Figures \ref{fig:ContBinTree}-\ref{fig:PulList} show that the binary tree topology is much more effective in damaging the traffic of the target server. Even considering a margin on a simulation where a tree-based topology has 5 times more node than a list-based topology, 500 nodes versus 100 nodes, the difference of the results is much bigger than this proportion.
+
+This can be interpreted as a consequence of the small delay in propagating commands from the C\&C to far nodes in the botnet for a smaller number of levels. In the list, even though the DDoS algorithm orders that all nodes attack at the same time, the delay of the propagation makes the attacks to reach the target asynchronously resulting in a very ineffective approach.
+
+As it can be seen in both topologies, Figure \ref{fig:ContBinTree} and Figure \ref{fig:ContList}, respectively, the tree-based and list-based topologies, the constant rate DDoS presents a considerable delay before achieving a stable rate of package loss. It is the time necessary to mobilize all the nodes in the botnet.
+
+On the other hand, Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList} show that the pulse DDoS presents a stable rate since the first time of the attack, given that the C\&C orders that all nodes attack at the same clock time, and resulting in a more powerful capacity for using it against big infrastructures.
 
 \section{\uppercase{Protection against mitigation}} \label{sec:protection}
 
