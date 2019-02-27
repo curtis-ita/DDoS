@@ -164,21 +164,26 @@ Among these characteristics, the Degree of Automation and Attack Rate Dynamics a
 \subsection{Degree of automation} \label{sec:da}
 
 % The semi-automatic degree of automation ... \emph{justificar o modo semi-automático implementado, suas relações com a topologia e apresentar o problema de se esconder a estrutura da rede de zombies para evitar contra-ataque: os zumbies apenas se comunicam com o C\&C durante a fase de ataque. De preferência, adicionar uma diagrama para explicação}.
-The process of mobilizing zombies and commanding the attack can be either automatic, so that the botnet organizes the process by itself, manual, in which the hacker needs to give most of the commands, or semi-automatic, which is our case. In the methodology applied, the DDoS started through an user input. Then, after initiated, the algorithm kept commanding the attack by itself.
 
-\emph{Ajustar a questão da topologia, comentado com \% abaixo, para continuar explicação do nível de automatização pretendido no trabalho: foco em ser o mais automático possível, porém com início de ataque manualmente controlado pelo hacker}.
+During the infection of a botnet, the process of mobilizing zombies and commanding the attack can be either automatic, so that the bots organize the process by themselves, manual, in which the hacker needs to give most of the commands, or semi-automatic, which is the case of the methodology we applied. Our DDoS algorithm started through an user input and then, after initiated, kept commanding the attack automatically.
+
+% \emph{Ajustar a questão da topologia, comentado com \% abaixo, para continuar explicação do nível de automatização pretendido no trabalho: foco em ser o mais automático possível, porém com início de ataque manualmente controlado pelo hacker}.
 
 % ajustar texto abaixo para fluir como o acima
-%Botnets can be formed in different network structures (topologies), for which the most common are:
-%\begin{itemize}
-%	\item Star topology: There is a central Command and Control (C\&C) server, with the bots organized around it;
-%	\item Hierarchical topology: Bots organized in layers of C\&C servers;
-%	\item Random topology: peer-to-peer communication	between bots (P2P).
-%\end{itemize}
-%An unwanted weakness in the centralized topologies is the vulnerability of having the central C\&C taken down. An advantage to be explored from the Random topology (P2P) is the resiliency, the capability of reorganizing some bots in case of an eventual failure of a near server.
+Botnets can be formed in different network structures (topologies), for which the most common are:
+\begin{itemize}
+	\item Star topology: There is a central Command and Control (C\&C) server, with the bots organized around it;
+	\item Hierarchical topology: Bots organized in layers of C\&C servers;
+	\item Random topology: peer-to-peer communication	between bots (P2P).
+\end{itemize}
+
+The star topology was chosen to facilitate the implementation of a semi-automatic attack, since there is a central server that can receive manual input from an user and then transmit a flow of commands in root to leaves direction.
+
+%An advantage to be explored from the Random topology (P2P) is the resiliency, the capability of reorganizing some bots in case of an eventual failure of a near server.
+
 %In case of failure in the tree topology, an election algorithm was designed to replace the missing node with one of its children, with the intention of maintaining the functionality and lower the vulnerability of the network architecture. In case of failure in the list topology, it’s enough to assume that the failing node is removed and it’s left and right neighbors establish a connection.
 
-In order to preserve the manual control of the attack, in section \ref{sec:protection}, we propose a new method of automation which controls the botnet with resilience against mitigation, where zombies have only partial information about the topology.
+On the other hand, this centralized topology has a vulnerability if the central C\&C can be reached by an invader and taken down. In order to avoid this type of mitigation and still preserve the manual control of the attack, in section \ref{sec:protection}, we propose a new method of automation which controls the botnet with resilience, where zombies have only partial information about the topology.
 
 \subsection{Attack rate dynamics} \label{sec:ard}
 
