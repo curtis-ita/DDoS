@@ -163,27 +163,31 @@ Among these characteristics, the Degree of Automation and Attack Rate Dynamics a
 
 \subsection{Degree of automation} \label{sec:da}
 
+%The process of mobilizing zombies and commanding the attack can be either automatic, so that the botnet organizes the process by itself, manual, in which the hacker needs to give most of the commands, or semi-automatic, which is our case. In the methodology applied, the DDoS started through an user input. Then, after initiated, the algorithm kept commanding the attack by itself.
+
 % The semi-automatic degree of automation ... \emph{justificar o modo semi-automático implementado, suas relações com a topologia e apresentar o problema de se esconder a estrutura da rede de zombies para evitar contra-ataque: os zumbies apenas se comunicam com o C\&C durante a fase de ataque. De preferência, adicionar uma diagrama para explicação}.
 
-During the infection of a botnet, the process of mobilizing zombies and commanding the attack can be either automatic, so that the bots organize the process by themselves, manual, in which the hacker needs to give most of the commands, or semi-automatic, which is the case of the methodology we applied. Our DDoS algorithm started through an user input and then, after initiated, kept commanding the attack automatically.
+During the infection of a botnet, the process of infecting new zombies, the dynamic management of the network, and the control of a botnet command may be implemented in different degree of automation \cite{Bhardwaj:2016}:
+\begin{description}
+	\item[Automatic] Zombie nodes autonomously organize themselves, including a pre-programmed attack pattern;
+	\item[Manual] The hacker starts all the commands: attack, network management and infection;
+	\item[Semi-automatic] Some degree of automation.
+\end{description}
 
-% \emph{Ajustar a questão da topologia, comentado com \% abaixo, para continuar explicação do nível de automatização pretendido no trabalho: foco em ser o mais automático possível, porém com início de ataque manualmente controlado pelo hacker}.
+In this work, we preferred the semi-automatic degree of automation once the automatic restricts the flexibility of attack and the manual exposes the botnet network with many control messages. The semi-automatic approach is better once it has all de benefits of common distributed systems: no-central server, resilient to failures, scalable, etc.
 
-% ajustar texto abaixo para fluir como o acima
-Botnets can be formed in different network structures (topologies), for which the most common are:
-\begin{itemize}
-	\item Star topology: There is a central Command and Control (C\&C) server, with the bots organized around it;
-	\item Hierarchical topology: Bots organized in layers of C\&C servers;
-	\item Random topology: peer-to-peer communication	between bots (P2P).
-\end{itemize}
+Our semi-automatic solution implements a distributed botnet system that dynamically adapts the network, the topology of zombie nodes, once they become available or not due to a new successful infection or mitigation by a security system. Only the start of an attack command is kept manual in order to have more control of the experiments, while the dissemination of any command in the botnet continues autonomously.
 
-The star topology was chosen to facilitate the implementation of a semi-automatic attack, since there is a central server that can receive manual input from an user and then transmit a flow of commands in root to leaves direction.
+Botnets can be formed in different network structures, topologies, for which the most common are:
+\begin{description}
+	\item[Star topology] There is a C\&C server with the bots organized around it;
+	\item[Hierarchical topology] Bots organized in layers of C\&C servers;
+	\item[Random topology] Peer-to-peer (P2P) communication	among bots.
+\end{description}
 
-%An advantage to be explored from the Random topology (P2P) is the resiliency, the capability of reorganizing some bots in case of an eventual failure of a near server.
+The star topology was chosen to facilitate the implementation of the semi-automatic attack, since there is a central server that can receive manual input from a user and then transmit a flow of commands in the direction from the root to leaves.
 
-%In case of failure in the tree topology, an election algorithm was designed to replace the missing node with one of its children, with the intention of maintaining the functionality and lower the vulnerability of the network architecture. In case of failure in the list topology, it’s enough to assume that the failing node is removed and it’s left and right neighbors establish a connection.
-
-On the other hand, this centralized topology has a vulnerability if the central C\&C can be reached by an invader and taken down. In order to avoid this type of mitigation and still preserve the manual control of the attack, in section \ref{sec:protection}, we propose a new method of automation which controls the botnet with resilience, where zombies have only partial information about the topology.
+A weakness of this topology is the possibility of a security system to explore the center of each start. Using this vulnerability, it is possible to reach the C\&C and make it unavailable. In order to avoid this type of mitigation and still preserve the manual control of the attack, in section \ref{sec:protection}, we propose a new method of automation which controls the botnet with resilience, where zombies have only partial information about the topology.
 
 \subsection{Attack rate dynamics} \label{sec:ard}
 
@@ -229,7 +233,7 @@ All the codes are available open-source for further researches. Please, contact 
 
 \section{\uppercase{Evaluation of simulations}} \label{sec:evaluation}
 
-This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. We prefer to focus only in the package loss.
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. Besides we performed many measurements of the simulations, we focus in this work only in the package loss once it presented the most representative results of the simulations.
 
 % The results presented in this section were 
 
@@ -2561,7 +2565,7 @@ Finally, since DDoS from the attacker perspective is not a common topic in the a
 
 
 
-\vfill
+%\vfill
 
 \bibliographystyle{apalike}
 {\small
