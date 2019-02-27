@@ -216,7 +216,7 @@ In order to simulate the experiments, we implemented programs in GoLang supporte
 	\item[Targeted Server] It represents the target infrastructure and stores the attack data for further analysis.
 \end{description}
 
-All programs communicate with each other by TCP/IP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed bt the botnet.
+All programs communicate with each other by TCP/IP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed by the botnet.
 
 The records about the requests are tagged with timestamps in order to check the time it takes to achieve the target. It is also needed to check the bandwidth capability of each pair of network topology and ARD.
 
@@ -224,16 +224,14 @@ All the codes are available open-source for further researches. Please, contact 
 
 \section{\uppercase{Evaluation of simulations}} \label{sec:evaluation}
 
-This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. We prefer to focus only in the package loss 
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. We prefer to focus only in the package loss.
 
-The results presented in this section were 
+% The results presented in this section were 
 
-\emph{Ainda não consegui tempo para ver esta seção. Ignorar esta seção por enquanto.}
+% \emph{Ainda não consegui tempo para ver esta seção. Ignorar esta seção por enquanto.}
 
-After testing both topologies, tree and list, with the two ARD mechanisms, continuous stream and pulse wave, the package loss in the targeted server was observed. The tests were performed in different machines configurations, and the results were all similar. Thus, following, we present results from a single common machine configuration with Windows.
-
-just one result presenting the 
-A machine with Winodws machine The following results were obtained:
+% After testing both topologies, tree and list, with the two ARD mechanisms, continuous stream and pulse wave, the package loss in the targeted server was observed.
+The tests were performed in different machines configurations, and the results were all similar. Thus, we present results from a single common machine configuration with Windows. The following results were obtained:
 
 \begin{figure}[htbp]
 	\centering
