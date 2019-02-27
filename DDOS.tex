@@ -2532,12 +2532,15 @@ However, the timestamp on the system clock, when the zombie joined the botnet, i
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
-% Vamos deixar esta seção para o final, após fechar o artigo todo.
+The simulation of DDoS mechanisms implemented in this work could obtain interesting results preserving the functionality of a real DDoS and clarifying the dissemination of information within a botnet along with its interacting behavior.
 
-%The mechanisms of DDoS were implemented and tested in Windows, generating results that clarified the functionality of the attack. As it could be seen in the graphs in the previous section, the list implementation made the differences in each mechanism more evident, since it generates many levels using a relatively small number of nodes. Then, phenomena as the network propagation delay can be noticed more easily, the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
-% In terms of package loss in the targeted system, both mechanisms (Continuous and Pulsating DDoS) generated similar outputs. This could be expected, and can be interpreted as the excess of traffic being queued in the server. The proposed algorithm for election of a substitute for a failed node was not tested, since the adopted implementation made it very difficult to monitor changes inside the network connections. This was a challenge and could be a goal in future projects. Despite this, the implementation is simple and have no reasons not to work propperly or to be worryingly inneficient.
-% Furthermore, this implementation of the election theoretically meets the objective of preventing the botnet mitigation by and outside invader.
-%Since the Denial of Service is not very studied in academia from the attacker perspective, the experience acquired from this work offers a valuable didatic learning, and could even be presented to students of Computer Network or Distributed Computing courses.
+As described in the previous sections, the list-based implementation could expose the differences in each ARD mechanism, since it generates many levels of hierarchy in the topology using a relatively small number of nodes. Thus, phenomena as the network propagation delay can be noticed easier: the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
+
+In terms of package loss in the targeted system, both mechanisms (Continuous streaming and Pulsating waves) generated similar outputs. This is expected for a limited target infrastructure and can be interpreted as the botnet having more network bandwidth capacity than the target.
+
+We also propose a new election strategy to manage the dynamic structure of the botnet network, when zombie nodes detect failed parents, improving the security against mitigation by security systems. The proposed method theoretically meets the objective of preventing the botnet mitigation by outside invaders. However, since the simulation of a real scenario of security system attacking botnets is not trivial, we preferred to explore such simulations in future projects. 
+
+Finally, since DDoS from the attacker perspective is not a common topic in the academia, we expect this work helps to improve this discussion and can be used as material to new computer network and distributed system courses.
 
 
 
