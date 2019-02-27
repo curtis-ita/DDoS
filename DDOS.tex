@@ -2443,7 +2443,9 @@ Using Pulsating DDoS mechanism (Figure 8 and Figure 10), it can be noticed that 
 
 \section{\uppercase{Protection against mitigation}} \label{sec:protection}
 
-If a node detects that it’s parent is missing, it should start the election process to decide a new one. In the adopted strategy, as exemplified in the figures below, the oldest child of the missing parent takes it's place.
+In a real botnet over the Internet, zombie nodes may be turned off at any time. As the transmission of the C\&C commands is forwarded node by node on the topology, it may brake the botnet. Usually, botnets solve it by implementing some distributed solution to autonomously adapt the topology on such cases.
+
+Security systems may take advantage of this situation by infiltrating a zombie spy in the botnet and blocking the other nodes in such a way to push it as close as possible to the root of the tree topology. Using this strategy, the invader could raise hierarchically in the topology and get a huge part of the tree as its descendant. Since the command flow occurs from the root to the leaves, the spy could stop sending malicious traffic to this part of the botnet or sabotage it.
 
 \begin{figure}[htb]
     \centering
@@ -2481,7 +2483,7 @@ If a node detects that it’s parent is missing, it should start the election pr
         
         \end{tikzpicture} 
     }
-    \caption{Node fails and its children detect the absence.}
+    \caption{Parent node fails and its children detect the absence.}
     \label{Fig:Missing}
 \end{figure}
 
@@ -2523,8 +2525,10 @@ If a node detects that it’s parent is missing, it should start the election pr
     \label{Fig:Replacement}
 \end{figure}
 
-When deciding who is the oldest brother, the age compared is the time stamped on the system clock when the zombie joined the botnet. This avoids an invader from faking its own time to seem older, and then being able to be elected more easily to substitute a missing parent. Using this strategy, the invader could raise hierarchically in the topology and get a huge part of the tree as its descendent. Since the command flow occurs from the root to the leaves, it could stop sending traffic to this part of the botnet, or sabotage it.
+Next, we describe a solution to improve the protection of the botnet against this kind of security systems. If a node detects that its parent is missing, it should start the election process to decide a new one. In the adopted 
+strategy, as exemplified in the Figures \ref{Fig:Missing} and \ref{Fig:Replacement}, the oldest child of the missing parent takes its place.
 
+However, the timestamp on the system clock, when the zombie joined the botnet, is used  to compare the zombie nodes and to decide who is the oldest brother. This is sufficient to avoid an invader from forging its own time by pretending to be older in order to substitute a missing parent.
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
