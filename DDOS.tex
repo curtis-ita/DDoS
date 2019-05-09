@@ -92,17 +92,17 @@ Many of these DoS attacks are easy to identify and block by only checking the so
 
 \begin{figure}[htb]
 	\centering
-  \resizebox{0.45\textwidth}{!}{
+  \resizebox{1.0\linewidth}{!}{ %\textwidth
   \begin{tikzpicture}[node distance=10mm,
-    every node/.style={fill=white, font=\footnotesize, minimum width=2.6cm},
+    every node/.style={fill=white, font=\normalsize, minimum width=2.6cm},
     align=center,
     ]
     % retangulo
-    \draw[very thin]  (4,2) rectangle (8,-6.5) node[below, xshift=-2cm, yshift=-0.2cm] {Internet devices};
+    \draw[very thin]  (2,1.5) rectangle (6,-7) node[below, xshift=-2cm, yshift=-0.2cm] {Internet devices};
     
     % imagens svg
     \node[label={Hacker}] (hacker) {\includegraphics[scale=1]{"img/standing man icon"}};
-    \node[label=below:{C\&C}, right of=hacker, xshift=1cm, yshift=-2cm] (cc) {\includegraphics[scale=1]{"img/terminal"}};
+    \node[label=below:{C\&C}, right of=hacker, xshift=-1.0cm, yshift=-2.5cm] (cc) {\includegraphics[scale=1]{"img/terminal"}};
     
     \node[right of=cc, xshift=3cm] (infectR) {\includegraphics[scale=0.8]{"img/terminal"}};
     \node[above of=infectR, yshift=0.5cm] (infectA1) {\includegraphics[scale=0.6]{"img/pda"}};
