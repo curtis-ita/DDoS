@@ -92,9 +92,9 @@ Many of these DoS attacks are easy to identify and block by only checking the so
 
 \begin{figure}[htb]
 	\centering
-  \resizebox{1.0\linewidth}{!}{ %\textwidth
+  \resizebox{0.9\linewidth}{!}{ %\textwidth
   \begin{tikzpicture}[node distance=10mm,
-    every node/.style={fill=white, font=\normalsize, minimum width=2.6cm},
+    every node/.style={fill=white, font=\large, minimum width=2.6cm},
     align=center,
     ]
     % retangulo
@@ -138,11 +138,12 @@ After many devices infected, the hacker initiates a DDoS through the C\&C, which
 
 DDoS is also much more powerful than a simple DoS because it multiplies the capacity of sending fake request to the target, the massive amount of available resources enables requests with signatures very close to genuine requests, and it can be implemented with no central point of C\&C, making the interruption of an attack much more difficult.
 
-\begin{figure}[htb]
-	\includegraphics[width=\linewidth]{img/taxonomy}
+\begin{figure*}[htb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/taxonomy}
 	\caption{Taxonomy of DDoS attacks.}
 	\label{fig:taxonomy}
-\end{figure}
+\end{figure*}
 
 In the literature, there are some taxonomies trying to capture all the methods involving DDoS. \cite{Mirkovic:2004} and \cite{Bhardwaj:2016} classify DDoS attacks by the following main categories: Degree of Automation (DA), Exploited Weakness to Deny Service (EW), Source Address Validity (SAV), Attack Rate Dynamics (ARD), Possibility of Characterization (PC), Persistence of Agent Set (PAS), Victim Type (VT) and Impact on the Victim (IV), as described by Figure \ref{fig:taxonomy}. For more information about the details of this taxonomy and the characteristics of each component, please, see \cite{Mirkovic:2004} and \cite{Bhardwaj:2016}.
 
@@ -2464,10 +2465,10 @@ Security systems may take advantage of this situation by infiltrating a zombie s
 \begin{figure}[htb]
     \centering
     
-    \resizebox{.45\textwidth}{!}{
+    \resizebox{0.8\linewidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
-            thick, inner sep=0.1em, text centered, text width=4em}
+            thick, inner sep=0.1em, text centered, font=\large, text width=4em}
         ]
         \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
         \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
@@ -2504,10 +2505,10 @@ Security systems may take advantage of this situation by infiltrating a zombie s
 \begin{figure}[htb]
     \centering
     
-    \resizebox{.45\textwidth}{!}{
+    \resizebox{0.8\linewidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
-            thick, inner sep=0.1em, text centered, text width=4em}
+            thick, inner sep=0.1em, text centered, font=\large, text width=4em}
         ]
         \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
         \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
