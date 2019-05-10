@@ -2468,7 +2468,7 @@ On the other hand, Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList} show
 
 In a real botnet over the Internet, zombie nodes may be turned off at any time. As the transmission of the C\&C commands is forwarded node by node on the topology, it may brake the botnet. Usually, botnets solve it by implementing some distributed solution to autonomously adapt the topology on such cases.
 
-Security systems may take advantage of this situation by infiltrating a zombie spy in the botnet and blocking the other nodes in such a way to push it as close as possible to the root of the tree topology. Using this strategy, the invader could raise hierarchically in the topology and get a huge part of the tree as its descendant. Since the command flow occurs from the root to the leaves, the spy could stop sending malicious traffic to this part of the botnet or sabotage it.
+Security systems may take advantage of this situation by infiltrating a zombie spy in the botnet and blocking the other nodes in such a way to push it as close as possible to the root of the tree topology. Using this strategy, the invader could raise hierarchically in the topology and get a huge part of the tree as its descendant. Since the command flow occurs from the root to the leaves, the spy can stop sending malicious traffic to this part of the botnet or sabotage it.
 
 \begin{figure}[htb]
     \centering
@@ -2548,22 +2548,22 @@ Security systems may take advantage of this situation by infiltrating a zombie s
     \label{Fig:Replacement}
 \end{figure}
 
-Next, we describe a solution to improve the protection of the botnet against this kind of security systems. If a node detects that its parent is missing, it should start the election process to decide a new one. In the adopted 
+Next, we describe a solution to improve the protection of the botnet against this kind of security systems. If a node detects that its parent is missing, it starts an election process to decide a new one. In the adopted 
 strategy, as exemplified in the Figures \ref{Fig:Missing} and \ref{Fig:Replacement}, the oldest child of the missing parent takes its place.
 
 However, the timestamp on the system clock, when the zombie joined the botnet, is used  to compare the zombie nodes and to decide who is the oldest brother. This is sufficient to avoid an invader from forging its own time by pretending to be older in order to substitute a missing parent.
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
-The simulation of DDoS mechanisms implemented in this work could obtain interesting results preserving the functionality of a real DDoS and clarifying the dissemination of information within a botnet along with its interacting behavior.
+The simulation of DDoS mechanisms implemented in this work achieves interesting results preserving the functionality of a real DDoS and clarifying the dissemination of information within a botnet along with its interacting behavior.
 
-The list-based implementation could expose the differences in each ARD mechanism, since it generates many levels of hierarchy in the topology using a relatively small number of nodes. Thus, phenomena as the network propagation delay can be noticed easier: the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
+The list-based implementation exposes the differences in each ARD mechanism, since it generates many levels of hierarchy in the topology using a relatively small number of nodes. Thus, phenomena as the network propagation delay can be noticed easier: the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
 
-In terms of package loss in the targeted system, both mechanisms (Continuous streaming and Pulsating waves) generated similar outputs. This is expected for a limited target infrastructure and can be interpreted as the botnet having more network bandwidth capacity than the target.
+In terms of package loss in the targeted system, both mechanisms (Continuous streaming and Pulsating waves) generated similar outputs. It is expected for a limited target infrastructure and it can be interpreted as the botnet having more network bandwidth capacity than the target.
 
-We also propose a new election strategy to manage the dynamic structure of the botnet network, when zombie nodes detect failed parents, improving the security against mitigation by security systems. The proposed method theoretically meets the objective of preventing the botnet mitigation by outside invaders. However, since the simulation of a real scenario of security system attacking botnets is not trivial, we preferred to explore such simulations in future projects. 
+We also propose a new election strategy to manage the dynamic structure of the botnet network, when zombie nodes detect failed parents, improving the security against mitigation from security systems. The proposed method theoretically meets the objective of preventing the botnet mitigation by outside invaders. However, since the simulation of a real scenario of security system attacking botnets is not trivial, we preferred to explore such simulations in future projects. 
 
-Finally, since DDoS from the attacker perspective is not a common topic in the academia, we expect this work helps to improve this discussion and can be used as material to new computer network and distributed system courses.
+Finally, since DDoS from the attacker perspective is not a common topic in the academia, we expect that this work can be used as material to new computer network and distributed system courses in order to improve the security discussions.
 
 
 
