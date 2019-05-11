@@ -50,7 +50,7 @@
 	
 \title{Exploring DDoS Mechanisms}
 
-\author{\authorname{Bruno de Souza Neves, Filipe Mourão Leite, Lucas da Silva Jorge, Rahyan Azin Gondin Paiva, Juliana de Melo Bezerra and Vitor Venceslau Curtis}
+\author{\authorname{Bruno de Souza Neves, Filipe Mour\~ao Leite, Lucas da Silva Jorge, Rahyan Azin Gondin Paiva, Juliana de Melo Bezerra and Vitor Venceslau Curtis}
 	\affiliation{Department of Computer Science Department, ITA, São José dos Campos, Brazil}
 	\email{\{neves.brunobr, filipemleite94, lucas1jorge, rahyan.azin\}@gmail.com, \{juliana, curtis\}@ita.br}
 }
@@ -234,23 +234,37 @@ In order to simulate the experiments, we implemented programs in GoLang supporte
 	\item[Targeted Server] It represents the target infrastructure and stores the attack data for further analysis.
 \end{description}
 
-All programs communicate with each other by TCP/IP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed by the botnet.
+All programs communicate with each other by UDP packets and the Client implements distributed solutions to handle the network topology autonomously. So that it was possible to extract some metrics from the simulation information was added to the packets and printed in logs so that the information could be later analysed, more specifically each packet contains:
 
-The records about the requests are tagged with timestamps in order to check the time it takes to achieve the target. It is also needed to check the bandwidth capability of each pair of network topology and ARD.
+\begin{itemize}
+	\item Packages sent to the targeted server: an identification of the sender, a timestamp marking the time the packet was sent and a sequence number that helped identifying lost packets;
+	\item Packages sent to zombies ordering a attack: an identification of its targeted node, the type of the attack and, in the case of pulse DDoS pattern, a timestamp identifying the initial attack time;
+	\item Packages regarding the botnet contruction: just identification of the soon to be zombie.
+\end{itemize}
+
+Using the data inside the packages sent to the targeted server it was possible to acquire information regarding packet loss, packet delay and information transmition delay inside the botnet.
+
+So that we could compare attack patterns two attack possibities were implemented: a constant one (the bots begins the attack as soon as he receives the message), and a pulse-like one (a timestamp marked when the bot should start the attack).
+
+Since the simulation was not running in a real network with real computers bandwith needed to be simulated and that was done controlling the rate the packages were sent both between zombies and between zombies and the targeted server.
+
+The implemented botnet topology was that of a random tree. The adition of a bot was done by giving it bot  the power to either accept the received bot as its own son or passing down to one of its children so that it would be allocated in one of its subtrees. In the simulation, the bot greedily opted to fill its own children capacity (2 in the case of a binary tree and one in the case of a list) and only after it was filled he would choose to pass the new bot randomly to one of its children. The goal was to simulate a somewhat balanced tree that minimized its depth (minimizing information delay between bots) and also minimized message passing.
 
 All the codes are available open-source for further researches. Please, contact the authors for getting access to it.
 
 \section{\uppercase{Results}} \label{sec:evaluation}
 
-This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. Besides many measurements were obtained from the simulations, we focus in this work only in the package loss once it presents the most representative results of the simulations.
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. From the logs obtained from the simulation the most relevant measurements that can be extracated are the package loss and the attack propagation delay.
 
 The tests were performed in different machines configurations and the results were all similar. In the following sections, we preferred to show the results from a single common machine configuration.
 
-\subsection{Contamination of zombies}
+\subsection{Attack Propagation Delay}
 
 In a real scenario, a central server of a star topology usually contaminates zombies around it in a tree-like structure. Thus, in order to simulate this approach, we simulate the system in a binary tree topology. Furthermore, to observe the effects of having a large number of levels in the tree architecture with a reasonable number of nodes, we use a botnet with list structure, which in practice is unlikely to happen but it is enough to observe results.
 
 During the contamination phase, for a similar number of nodes, the list-based topology presents a bigger number of layers than a tree-based topology, implying in a larger delay of propagation through the botnet. Because of this, we use 100 nodes for the list implementations. For the binary tree topology, since the height tends to be proportional to $\log_2 n$, we use 500 nodes in the simulation to get more levels and make the effect of the topology clear in the results.
+
+It should be highlighted that the shorter the attack propagation delay is, the worse are its impacts. As it can be seen in Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList}, it is very likely that no action could be taken before the server is down, it is the worse case scenario. In constant attacks patterns, like the onee from the Figures \ref{fig:ContBinTree} and \ref{fig:ContList}, it is possible to identify the increasing workload and take action to protect the servers before it is too late.
 
 \begin{figure}[bp]
 	\centering
