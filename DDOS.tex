@@ -234,9 +234,17 @@ In order to simulate the experiments, we implemented programs in GoLang supporte
 	\item Targeted Server: It represents the target infrastructure and stores the attack data for further analysis.
 \end{itemize}
 
-All programs communicate with each other by UDP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed by the botnet.
+All programs communicate with each other by UDP packets and the Client implements distributed solutions to handle the network topology autonomously. All the information about the simulation is retrieved from logs and the packets exchanged among the nodes of the network. More specifically, each packet contains:
 
-The records about the requests are tagged with timestamps in order to check the time it takes to achieve the target. It is also needed to check the bandwidth capability of each pair of network topology and ARD.
+\begin{itemize}
+  \item Packages sent to the Targeted Server: an identification of the sender, a timestamp of a sent packet, and a sequence number to help identifying lost packets;
+  \item Packages sent to Client (zombies) ordering a attack: the Targeted Server identification, the type of the attack, and a timestamp identifying the initial attack time in case of a pulse DDoS pattern;
+  \item Packages regarding the botnet construction: identification of the new Client (zombie).
+\end{itemize}
+
+Using data of the packages sent to the Targeted Server it is possible to acquire information regarding the packet loss, packet delay and transmition delay throughout the botnet. We use these data to implement two kinds of attack patterns: constant (Clients begin the attack as soon as they receive the message), and the pulse-like (a timestamp states when the Clients should start the attack).
+
+Since the experiment was not performed in a real network, real computers with their latencies and bandwith, we had to simulate these characteristics by controlling the rate the packages exchange among the nodes of the network.
 
 All the codes are available open-source for further researches. Please, contact the authors for getting access to it.
 
