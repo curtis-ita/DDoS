@@ -50,7 +50,7 @@
 	
 \title{Exploring DDoS Mechanisms}
 
-\author{\authorname{Bruno de Souza Neves, Filipe Mourão Leite, Lucas da Silva Jorge, Rahyan Azin Gondin Paiva, Juliana de Melo Bezerra and Vitor Venceslau Curtis}
+\author{\authorname{Bruno de Souza Neves, Filipe Mour\~ao Leite, Lucas da Silva Jorge, Rahyan Azin Gondin Paiva, Juliana de Melo Bezerra and Vitor Venceslau Curtis}
 	\affiliation{Department of Computer Science Department, ITA, São José dos Campos, Brazil}
 	\email{\{neves.brunobr, filipemleite94, lucas1jorge, rahyan.azin\}@gmail.com, \{juliana, curtis\}@ita.br}
 }
@@ -58,14 +58,14 @@
 \keywords{DDoS, Botnet, Election, Network Topology.}
 
 \abstract{The concern about cyber security has attracted attention by organizations and public services over the last
-	few years due to the contemporary importance of confidentiality, integrity, and availability of services and
-	sensitive data. In contrast, many recent episodes of cyber attacks causing strong impact have been performed using
+	few years due to the importance of confidentiality, integrity, and availability of services and
+	sensitive data. Many recent episodes of cyber attacks causing strong impact have been performed using
 	extremely simple techniques and taking advantage of the hidden weaknesses of current systems. This article
-	has the main purpose to motivate the academy to mitigate such unexpected potential threats from the
+	has the main purpose to motivate the academy to mitigate  unexpected potential threats from the
 	attacker’s perspective, exposing the latent weakness of current systems, since the majority of such papers
 	focus only on the defense perspective. We analyze the potential impact of Denial of Service (DoS), a very
 	popular cyber attack that affects the availability of a victim server, through different mechanisms and topologies.
-	Specifically, we simulate and analyze the impact of Distributed DoS (DDoS) using the List and Binary Tree topologies along with Continuous or Pulsating stream of requests. In order to improve the potential of the analyzed DDoS methods, we also introduce a simple new technique to protect them against mitigation.
+	Specifically, we simulate and analyze the impact of Distributed DoS (DDoS) using the List and Binary Tree topologies along with Continuous or Pulsating stream of requests. In order to improve the potential of the analyzed DDoS methods, we also introduce a new technique to protect them against mitigation from security systems.
 }
 
 \onecolumn \maketitle \normalsize \setcounter{footnote}{0} \vfill
@@ -228,13 +228,13 @@ In this work, the two common mechanisms of ARD described in Section \ref{sec:ard
 
 In order to simulate the experiments, we implemented programs in GoLang supported by lightweight threads to achieve a high scale for the botnet simulation. Basically, the simulations are composed by three programs:
 
-\begin{description}
-	\item[Server] It is basically the C\&C server, responsible for the botnet commands and for tracking when a node first joined the botnet;
-	\item[Client] It is the zombie node, a node in a botnet network, capable of autonomously discovering other zombies and handling attacks;
-	\item[Targeted Server] It represents the target infrastructure and stores the attack data for further analysis.
-\end{description}
+\begin{itemize}
+	\item Server: It is basically the C\&C server, responsible for the botnet commands and for tracking when a node first joined the botnet;
+	\item Client: It is the zombie node, a node in a botnet network, capable of autonomously discovering other zombies and handling attacks;
+	\item Targeted Server: It represents the target infrastructure and stores the attack data for further analysis.
+\end{itemize}
 
-All programs communicate with each other by TCP/IP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed by the botnet.
+All programs communicate with each other by UDP packages and the Client implements distributed solutions to handle the network topology autonomously. During the simulations, the lost packets to the Target Server are ignored and no information about it is possible to be retrieved from the Target Server. However, it is possible to recover the amount of lost packet by comparing the received packages and the total amount of requests performed by the botnet.
 
 The records about the requests are tagged with timestamps in order to check the time it takes to achieve the target. It is also needed to check the bandwidth capability of each pair of network topology and ARD.
 
@@ -242,11 +242,11 @@ All the codes are available open-source for further researches. Please, contact 
 
 \section{\uppercase{Results}} \label{sec:evaluation}
 
-This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. Besides many measurements were obtained from the simulations, we focus in this work only in the package loss once it presents the most representative results of the simulations.
+This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. From the logs obtained by the simulation, the most relevant measurements extracted are the package loss and the attack propagation delay.
 
 The tests were performed in different machines configurations and the results were all similar. In the following sections, we preferred to show the results from a single common machine configuration.
 
-\subsection{Contamination of zombies}
+\subsection{Attack Propagation Delay}
 
 In a real scenario, a central server of a star topology usually contaminates zombies around it in a tree-like structure. Thus, in order to simulate this approach, we simulate the system in a binary tree topology. Furthermore, to observe the effects of having a large number of levels in the tree architecture with a reasonable number of nodes, we use a botnet with list structure, which in practice is unlikely to happen but it is enough to observe results.
 
@@ -2464,6 +2464,8 @@ As it can be seen in both topologies, Figure \ref{fig:ContBinTree} and Figure \r
 
 On the other hand, Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList} show that the pulse DDoS presents a stable rate since the first time of the attack, given that the C\&C orders that all nodes attack at the same clock time, and resulting in a more powerful capacity for using it against big infrastructures.
 
+Thus, we may conclude that that the shorter the attack propagation delay is, the worse are the impacts. As it can be seen in Figure \ref{fig:PulBinTree} and Figure \ref{fig:PulList}, it is very likely that no action could be taken before the server is down, the worse case scenario. In constant attacks patterns, like the ones from the Figures \ref{fig:ContBinTree} and \ref{fig:ContList}, it is possible to identify the increasing workload and take action to protect the servers before it is too late.
+
 \section{\uppercase{Protection against mitigation}} \label{sec:protection}
 
 In a real botnet over the Internet, zombie nodes may be turned off at any time. As the transmission of the C\&C commands is forwarded node by node on the topology, it may brake the botnet. Usually, botnets solve it by implementing some distributed solution to autonomously adapt the topology on such cases.
@@ -2555,15 +2557,15 @@ However, the timestamp on the system clock, when the zombie joined the botnet, i
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
-The simulation of DDoS mechanisms implemented in this work achieves interesting results preserving the functionality of a real DDoS and clarifying the dissemination of information within a botnet along with its interacting behavior.
+The simulation of DDoS mechanisms implemented in this work achieved interesting results preserving the functionality of a real DDoS and clarifying the dissemination of information within a botnet along with its interacting behavior.
 
-The list-based implementation exposes the differences in each ARD mechanism, since it generates many levels of hierarchy in the topology using a relatively small number of nodes. Thus, phenomena as the network propagation delay can be noticed easier: the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
+The list-based implementation exposed the differences in each ARD mechanism, since it generated many levels of hierarchy in the topology using a relatively small number of nodes. Thus, phenomena as the network propagation delay can be noticed easier: the time to mobilize all bots in the network is more expressive and the two mechanisms of attack generate very different results.
 
-In terms of package loss in the targeted system, both mechanisms (Continuous streaming and Pulsating waves) generated similar outputs. It is expected for a limited target infrastructure and it can be interpreted as the botnet having more network bandwidth capacity than the target.
+In terms of package loss in the targeted system, both mechanisms (Continuous streaming and Pulsating waves) generated similar outputs. This is expected for a limited target infrastructure and it can be interpreted as the botnet having more network bandwidth capacity than the target.
 
-We also propose a new election strategy to manage the dynamic structure of the botnet network, when zombie nodes detect failed parents, improving the security against mitigation from security systems. The proposed method theoretically meets the objective of preventing the botnet mitigation by outside invaders. However, since the simulation of a real scenario of security system attacking botnets is not trivial, we preferred to explore such simulations in future projects. 
+We also proposed a new election strategy to manage the dynamic structure of the botnet network, when zombie nodes detect failed parents, improving the security against mitigation from security systems. The proposed method theoretically meets the objective of preventing the botnet mitigation by outside invaders. However, since the simulation of a real scenario of security system attacking botnets is not trivial, we preferred to explore such simulations in future projects. 
 
-Finally, since DDoS from the attacker perspective is not a common topic in the academia, we expect that this work can be used as material to new computer network and distributed system courses in order to improve the security discussions.
+As DDoS from the attacker perspective is not a common topic in the academia, we expect that this work can be used as material to new computer network and distributed system courses in order to improve the security discussions.
 
 
 
