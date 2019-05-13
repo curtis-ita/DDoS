@@ -61,7 +61,7 @@
 	few years due to the importance of confidentiality, integrity, and availability of services and
 	sensitive data. Many recent episodes of cyber attacks causing strong impact have been performed using
 	extremely simple techniques and taking advantage of the hidden weaknesses of current systems. This article
-	has the main purpose to motivate the academy to mitigate  unexpected potential threats from the
+	has the main purpose to motivate the academy to mitigate unexpected potential threats from the
 	attacker’s perspective, exposing the latent weakness of current systems, since the majority of such papers
 	focus only on the defense perspective. We analyze the potential impact of Denial of Service (DoS), a very
 	popular cyber attack that affects the availability of a victim server, through different mechanisms and topologies.
@@ -92,7 +92,7 @@ First, we present some basic concepts of DoS and DDoS in section \ref{sec:basic}
 
 \section{\uppercase{Basic concepts of DoS and taxonomy of DDoS}} \label{sec:basic}
 
-DoS is a cyber-attack in which the perpetrator seeks to make a machine or network resource unavailable to its intended users by temporarily or indefinitely disrupting services of a host connected to the Internet \cite{Soltanian:2016}, and it can be achieved by different methods. A simple example of DoS with limited side effect is deliberately entering a wrong password enough consecutive times to cause the victims account to be locked.
+DoS is a cyber-attack in which the perpetrator seeks to make a machine or network resource unavailable to its intended users by temporarily or indefinitely disrupting services of a host connected to the Internet \cite{Soltanian:2016}, and it can be achieved by different methods. %A simple example of DoS with limited side effect is deliberately entering a wrong password enough consecutive times to cause the victims account to be locked.
 
 Usually, the most common method of attack occurs when the hacker floods a network server or resource with superfluous or incorrect requests in an attempt to decrease its availability to attend legitimate requests and blocking all users at once. One example of such attack is known as SYN flood, where one sends a request to connect but never completes the connection through a three-way handshake. The incomplete handshake leaves the connected port in an occupied status and unavailable for further requests.
 
@@ -148,7 +148,7 @@ DDoS is also much more powerful than a simple DoS because it multiplies the capa
 
 \begin{figure*}[htb]
 	\centering
-	\includegraphics[width=0.9\textwidth]{img/taxonomy}
+	\includegraphics[width=0.8\textwidth]{img/taxonomy}
 	\caption{Taxonomy of DDoS attacks.}
 	\label{fig:taxonomy}
 \end{figure*}
@@ -176,7 +176,7 @@ Among these characteristics, the Degree of Automation and Attack Rate Dynamics a
 
 % The semi-automatic degree of automation ... \emph{justificar o modo semi-automático implementado, suas relações com a topologia e apresentar o problema de se esconder a estrutura da rede de zombies para evitar contra-ataque: os zumbies apenas se comunicam com o C\&C durante a fase de ataque. De preferência, adicionar uma diagrama para explicação}.
 
-During the infection of a botnet, the process of infecting new zombies, the dynamic management of the network, and the control of a botnet command may be implemented in different degree of automation \cite{Bhardwaj:2016}:
+The infection of new zombies, the dynamic management of the network, and the control of a botnet may be implemented in different degree of automation \cite{Bhardwaj:2016}:
 \begin{itemize}
 	\item Automatic: zombie nodes autonomously organize themselves, including a pre-programmed attack pattern;
 	\item Manual: the hacker starts all the commands: attack, network management and infection;
@@ -237,16 +237,16 @@ In order to simulate the experiments, we implemented programs in GoLang supporte
 All programs communicate with each other by UDP packets and the Client implements distributed solutions to handle the network topology autonomously. All the information about the simulation is retrieved from logs and the packets exchanged among the nodes of the network. More specifically, each packet contains:
 
 \begin{itemize}
-  \item Packages sent to the Targeted Server: an identification of the sender, a timestamp of a sent packet, and a sequence number to help identifying lost packets;
-  \item Packages sent to Client (zombies) ordering a attack: the Targeted Server identification, the type of the attack, and a timestamp identifying the initial attack time in case of a pulse DDoS pattern;
-  \item Packages regarding the botnet construction: identification of the new Client (zombie).
+  \item Sent to the Targeted Server: an identification of the sender, a timestamp of a sent packet, and a sequence number to help identifying lost packets;
+  \item Ordering a attack (to zombies): the Targeted Server identification, the type of the attack, and a timestamp identifying the initial attack time in case of a pulse DDoS pattern;
+  \item Regarding the botnet construction: identification of the new Client (zombie).
 \end{itemize}
 
 Using data of the packages sent to the Targeted Server it is possible to acquire information regarding the packet loss, packet delay and transmition delay throughout the botnet. We use these data to implement two kinds of attack patterns: constant (Clients begin the attack as soon as they receive the message), and the pulse-like (a timestamp states when the Clients should start the attack).
 
-Since the experiment was not performed in a real network, real computers with their latencies and bandwidth, we had to simulate these characteristics by controlling the rate of the packages exchanges among the nodes of the network.
+Since the experiment was not performed in a real network, real computers with their latencies and bandwidth, we had to simulate these characteristics by controlling the rate of the package exchanges among the nodes of the network.
 
-In order to analyze the impact of latencies, we simulate real networks by implementing two basic botnet topologies: a list topology and a random binary tree topology. In both cases, the addition of a new Client into the network is decided by the Clients of the topology: a Client greedily accepts a new zombie as its own child (two in the case of binary tree and one for list) or ramdonly choose one of its children to delegate the addition in a recursive way. The goal is to simulate a balanced tree that minimizes its depth (minimizing information delay among bots) and the message passing and compare it to a topology with high latency, i.e., the list-based topology.
+The latencies are simulated by implementing two basic botnet topologies: a list topology and a random binary tree topology. In both cases, the addition of a new zombie is decided by the zombies already set in the network: it greedily accepts a new zombie as its own child (two in the case of binary tree and one for list) or ramdonly choose one of its children to delegate the addition in a recursive way. The goal is to simulate a balanced tree that minimizes its depth (information delay among bots) and the message passing, and further compare it to a topology with high latency, i.e., the list-based topology.
 
 All the codes are available open-source for further researches. Please, contact the authors for getting access to it.
 
@@ -254,18 +254,16 @@ All the codes are available open-source for further researches. Please, contact 
 
 This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. From the logs obtained by the simulation, the most relevant measurements extracted are the package loss and the attack propagation delay.
 
-The tests were performed in different machines configurations and the results were similar. In the following sections, we preferred to show the results for a single regular Windows PC with the following configuration and tools: Windows 10 O.S., Intel Core i7 processor, 8GB(RAM), Go programming language. The amount of lightweight threads is described in each experiment.
+The tests were performed in different machines configurations and the results were similar. In the following sections, we preferred to show the results for a single regular Windows PC with the following configuration and tools: Windows 10 O.S., Intel Core i7 processor, 8GB(RAM). The amount of lightweight threads is described in each experiment.
 
 \subsection{Attack Propagation Delay}
 
-In a real scenario, a central server of a star topology usually contaminates zombies around it in a tree-like structure. Thus, in order to simulate this approach, we simulate the system in a binary tree topology. Furthermore, to observe the effects of having a large number of levels in the tree architecture with a reasonable number of nodes, we use a botnet with list structure, which in practice is unlikely to happen but it is enough to observe results.
+In a real scenario, a central server of a star topology usually contaminates zombies around it in a tree-like structure. Thus, in order to simulate this approach, we implemented the system with a binary tree topology. Furthermore, to observe the effects of having a large number of levels in the tree architecture with a reasonable number of nodes, we use a botnet with list structure, which in practice is unlikely to happen but it is enough to observe results.
 
-During the contamination phase, for a similar number of nodes, the list-based topology presents a bigger number of layers than a tree-based topology, implying in a larger delay of propagation through the botnet. Because of this, we use 100 nodes for the list implementations. For the binary tree topology, since the height tends to be proportional to $\log_2 n$, we use 500 nodes in the simulation to get more levels and make the effect of the topology clear in the results.
-
-\begin{figure}[bp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Reached nodes,
 	ylabel=Elapsed time (in ms),
@@ -782,10 +780,10 @@ During the contamination phase, for a similar number of nodes, the list-based to
 	\label{fig:MobContBT}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Reached nodes,
 	ylabel=Elapsed time (in ms),
@@ -1302,10 +1300,10 @@ During the contamination phase, for a similar number of nodes, the list-based to
 	\label{fig:MobPulBT}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Reached nodes,
 	ylabel=Elapsed time (in ms),
@@ -1422,10 +1420,10 @@ During the contamination phase, for a similar number of nodes, the list-based to
 	\label{fig:MobContL}
 \end{figure}
 
-\begin{figure}[tbp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Reached nodes,
 	ylabel=Elapsed time (in ms),
@@ -1542,7 +1540,7 @@ During the contamination phase, for a similar number of nodes, the list-based to
 	\label{fig:MobPulL}
 \end{figure}
 
-The results are presented in Figures \ref{fig:MobContBT}-\ref{fig:MobPulL}, and it is important to highlight that the graphs are in the same scale in order to make the shape of curves more evident.
+During the contamination phase, for a similar number of nodes, the list-based topology presents a bigger number of layers than a tree-based topology, implying in a larger delay of propagation through the botnet. Because of this, we use 100 nodes for the list implementations. For the binary tree topology, since the height tends to be proportional to $\log_2 n$, we use 500 nodes in the simulation to get more levels and make the effect of the topology clear in the results. The results are presented in Figures \ref{fig:MobContBT}-\ref{fig:MobPulL}.
 
 Using pulse DDoS mechanism, Figure \ref{fig:MobPulBT} and Figure \ref{fig:MobPulL}, it can be noticed that almost all nodes attack at the same time, delay near $0$ms, except for outliers that do not attack immediately for some unexpected fail or oscillation, a phenomena also present in a real network.
 
@@ -1551,10 +1549,12 @@ The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure
 
 \subsection{Package loss in target server}
 
-\begin{figure}[bp]
+The graphs on Figures \ref{fig:ContBinTree}-\ref{fig:PulList} show that the binary tree topology is much more effective in damaging the traffic of the target server. Even considering a margin on a simulation where a tree-based topology has 5 times more node than a list-based topology, 500 nodes versus 100 nodes, the difference of the results is much bigger than this proportion.
+
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Elapsed time (in ms),
 	ylabel=Amount of lost packages,
@@ -1710,10 +1710,10 @@ The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure
 	\label{fig:ContBinTree}
 \end{figure}
 
-\begin{figure}[btp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Elapsed time (in ms),
 	ylabel=Amount of lost packages,
@@ -1824,10 +1824,10 @@ The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure
 	\label{fig:PulBinTree}
 \end{figure}
 
-\begin{figure}[btp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Elapsed time (in ms),
 	ylabel=Amount of lost packages,
@@ -2225,10 +2225,10 @@ The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure
 	\label{fig:ContList}
 \end{figure}
 
-\begin{figure}[btp]
+\begin{figure}[htbp]
 	\centering
 	\footnotesize
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.8, font=\normalsize]
 	\begin{axis}[
 	xlabel=Elapsed time (in ms),
 	ylabel=Amount of lost packages,
@@ -2466,8 +2466,6 @@ The graphs of the constant DDoS mechanism, Figure \ref{fig:MobContBT} and Figure
 	\label{fig:PulList}
 \end{figure}
 
-The graphs on Figures \ref{fig:ContBinTree}-\ref{fig:PulList} show that the binary tree topology is much more effective in damaging the traffic of the target server. Even considering a margin on a simulation where a tree-based topology has 5 times more node than a list-based topology, 500 nodes versus 100 nodes, the difference of the results is much bigger than this proportion.
-
 This can be interpreted as a consequence of the small delay in propagating commands from the C\&C to far nodes in the botnet for a smaller number of levels. In the list, even though the DDoS algorithm orders that all nodes attack at the same time, the delay of the propagation makes the attacks to reach the target asynchronously resulting in a very ineffective approach.
 
 As it can be seen in both topologies, Figure \ref{fig:ContBinTree} and Figure \ref{fig:ContList}, respectively, the tree-based and list-based topologies, the constant rate DDoS presents a considerable delay before achieving a stable rate of package loss. It is the time necessary to mobilize all the nodes in the botnet.
@@ -2482,13 +2480,13 @@ In a real botnet over the Internet, zombie nodes may be turned off at any time. 
 
 Security systems may take advantage of this situation by infiltrating a zombie spy in the botnet and blocking the other nodes in such a way to push it as close as possible to the root of the tree topology. Using this strategy, the invader could raise hierarchically in the topology and get a huge part of the tree as its descendant. Since the command flow occurs from the root to the leaves, the spy can stop sending malicious traffic to this part of the botnet or sabotage it.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
     \centering
     
-    \resizebox{0.8\linewidth}{!}{
+    \resizebox{0.6\linewidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
-            thick, inner sep=0.1em, text centered, font=\large, text width=4em}
+            thick, inner sep=0.1em, text centered, font=\Large, text width=4em}
         ]
         \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
         \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
@@ -2518,17 +2516,17 @@ Security systems may take advantage of this situation by infiltrating a zombie s
         
         \end{tikzpicture} 
     }
-    \caption{Parent node fails and its children detect the absence.}
+    \caption{Child detects the absence of it failed parent.}
     \label{Fig:Missing}
 \end{figure}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
     \centering
     
-    \resizebox{0.8\linewidth}{!}{
+    \resizebox{0.6\linewidth}{!}{
         \begin{tikzpicture}[
             every node/.style={
-            thick, inner sep=0.1em, text centered, font=\large, text width=4em}
+            thick, inner sep=0.1em, text centered, font=\Large, text width=4em}
         ]
         \tikzstyle {blue_circ} = [circle, draw=blue, fill=blue!20]
         \tikzstyle {red_circ} = [circle, draw=red, fill=red!20]
@@ -2556,16 +2554,18 @@ Security systems may take advantage of this situation by infiltrating a zombie s
         \end{tikzpicture}
     }
     
-    \caption{Child 2 was elected the oldest and replaced the missing parent}
+    \caption{Oldest child (2) replaces the missing parent.}
     \label{Fig:Replacement}
 \end{figure}
 
-Next, we describe a solution to improve the protection of the botnet against this kind of security systems. If a node detects that its parent is missing, it starts an election process to decide a new one. In the adopted 
-strategy, as exemplified in the Figures \ref{Fig:Missing} and \ref{Fig:Replacement}, the oldest child of the missing parent takes its place.
+Next, we describe a solution to protect the botnet against this kind of security systems. If a node detects that its parent is missing, it starts an election process to decide a new one. In the adopted 
+strategy, exemplified in the Figures \ref{Fig:Missing} and \ref{Fig:Replacement}, the oldest child of the missing parent takes its place.
 
 The timestamp on the system clock, when the zombie joined the botnet, is used to compare the zombie nodes and to decide who is the oldest brother. This is sufficient to avoid an invader from forging its own time by pretending to be older in order to substitute a missing parent. Since the malware in a real system could take hours or even days to spread, the invader has to wait for a time of the same order of magnitude to ascend a substantial level in the hierarchy. Meanwhile, the other branches of the tree grow independently of what the security system is doing in the spy branch. This is more than enough for the botnet to make substantial damage to the server.
 
-It is important to notice that, in our botnet configuration, each node is only able to get information about its adjacent nodes: child, parent, and some close nodes (siblings and grandparent) due to the election procedure. This prevents a possible attacker to have easy access to the control server and allows our Degree of Automation to be semi-automatic. Another known approach to avoid the vulnerability of having a centralized server taken down is to change the hierarchy to peer-to-peer, in which each node would be exposed only to its adjacent bots and every node can be a command center. However, this would not allow the manual control of the attack by the Server, i.e., the time, rate and the dynamic. Thus, the implemented topology is similar to a P2P in the way nodes join the botnet and communicate with neighbors, but it is similar to a hierarchical network in the way command flows from a server to clients at each level.
+It is important to notice that, in our botnet configuration, each node is only able to get information about its adjacent nodes: child, parent, and some close nodes (siblings and grandparent) due to the election procedure. This prevents a possible attacker to have easy access to the control server and allows a semi-automatic Degree of Automation.
+
+Another approach to avoid the vulnerability of having a centralized server taken down is to change the hierarchy to peer-to-peer, in which each node would be exposed only to its adjacent bots and every node can be a command center. However, this would forbid the manual control by the Server: time, rate and the dynamic. Thus, the implemented topology is similar to a P2P in the way nodes join the botnet and communicate with neighbors, but it is similar to a hierarchical network in the way command flows throughout the level of the topology.
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
