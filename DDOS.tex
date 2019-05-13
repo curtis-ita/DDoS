@@ -244,7 +244,9 @@ All programs communicate with each other by UDP packets and the Client implement
 
 Using data of the packages sent to the Targeted Server it is possible to acquire information regarding the packet loss, packet delay and transmition delay throughout the botnet. We use these data to implement two kinds of attack patterns: constant (Clients begin the attack as soon as they receive the message), and the pulse-like (a timestamp states when the Clients should start the attack).
 
-Since the experiment was not performed in a real network, real computers with their latencies and bandwith, we had to simulate these characteristics by controlling the rate the packages exchange among the nodes of the network.
+Since the experiment was not performed in a real network, real computers with their latencies and bandwith, we had to simulate these characteristics by controlling the rate of the packages exchanges among the nodes of the network.
+
+In order to analyze the impact of latencies, we simulate real networks by implementing two basic botnet topologies: a list topology and a random binary tree topology. In both cases, the addition of a new Client into the network is decided by the Clients of the topology: a Client greedily accepts a new zombie as its own child (two in the case of binary tree and one for list) or ramdonly choose one of its children to delegate the addition in a recursive way. The goal is to simulate a balanced tree that minimizes its depth (minimizing information delay among bots) and the message passing and compare it to a topology with high latency, i.e., the list-based topology.
 
 All the codes are available open-source for further researches. Please, contact the authors for getting access to it.
 
@@ -252,7 +254,7 @@ All the codes are available open-source for further researches. Please, contact 
 
 This section presents the main results of our simulations for the tree-based and list-based topologies using continuous stream and pulse wave pattern of DDoS attacks. From the logs obtained by the simulation, the most relevant measurements extracted are the package loss and the attack propagation delay.
 
-The tests were performed in different machines configurations and the results were all similar. In the following sections, we preferred to show the results from a single common machine configuration.
+The tests were performed in different machines configurations and the results were similar. In the following sections, we preferred to show the results for a single regular Windows PC with the following configuration and tools: Windows 10 O.S., Intel Core i7 processor, 8GB(RAM), Go programming language. The amount of lightweight threads is described in each experiment.
 
 \subsection{Attack Propagation Delay}
 
@@ -2561,7 +2563,9 @@ Security systems may take advantage of this situation by infiltrating a zombie s
 Next, we describe a solution to improve the protection of the botnet against this kind of security systems. If a node detects that its parent is missing, it starts an election process to decide a new one. In the adopted 
 strategy, as exemplified in the Figures \ref{Fig:Missing} and \ref{Fig:Replacement}, the oldest child of the missing parent takes its place.
 
-However, the timestamp on the system clock, when the zombie joined the botnet, is used  to compare the zombie nodes and to decide who is the oldest brother. This is sufficient to avoid an invader from forging its own time by pretending to be older in order to substitute a missing parent.
+The timestamp on the system clock, when the zombie joined the botnet, is used to compare the zombie nodes and to decide who is the oldest brother. This is sufficient to avoid an invader from forging its own time by pretending to be older in order to substitute a missing parent. Since the malware in a real system could take hours or even days to spread, the invader has to wait for a time of the same order of magnitude to ascend a substantial level in the hierarchy. Meanwhile, the other branches of the tree grow independently of what the security system is doing in the spy branch. This is more than enough for the botnet to make substantial damage to the server.
+
+It is important to notice that, in our botnet configuration, each node is only able to get information about its adjacent nodes: child, parent, and some close nodes (siblings and grandparent) due to the election procedure. This prevents a possible attacker to have easy access to the control server and allows our Degree of Automation to be semi-automatic. Another known approach to avoid the vulnerability of having a centralized server taken down is to change the hierarchy to peer-to-peer, in which each node would be exposed only to its adjacent bots and every node can be a command center. However, this would not allow the manual control of the attack by the Server, i.e., the time, rate and the dynamic. Thus, the implemented topology is similar to a P2P in the way nodes join the botnet and communicate with neighbors, but it is similar to a hierarchical network in the way command flows from a server to clients at each level.
 
 \section{\uppercase{Conclusion}} \label{sec:conclusion}
 
