@@ -183,7 +183,7 @@ During the infection of a botnet, the process of infecting new zombies, the dyna
 	\item Semi-automatic: some degree of automation.
 \end{itemize}
 
-In this work, we preferred the semi-automatic degree of automation once the automatic restricts the flexibility of attack and the manual exposes the botnet network with many control messages. The semi-automatic approach is better once it has all de benefits of common distributed systems: no-central server, resilient to failures, scalable, etc.
+In this work, we preferred the semi-automatic degree of automation once the automatic restricts the flexibility of attack and the manual exposes the botnet network with many control messages. The semi-automatic approach is better once it has all the benefits of common distributed systems: no-central server, resilient to failures, scalable, etc.
 
 Our semi-automatic solution implements a distributed botnet system that dynamically adapts the network, the topology of zombie nodes, once they become available or not due to a new successful infection or mitigation by a security system. Only the start of an attack command is kept manual in order to have more control of the experiments, while the dissemination of any command in the botnet continues autonomously.
 
@@ -244,7 +244,7 @@ All programs communicate with each other by UDP packets and the Client implement
 
 Using data of the packages sent to the Targeted Server it is possible to acquire information regarding the packet loss, packet delay and transmition delay throughout the botnet. We use these data to implement two kinds of attack patterns: constant (Clients begin the attack as soon as they receive the message), and the pulse-like (a timestamp states when the Clients should start the attack).
 
-Since the experiment was not performed in a real network, real computers with their latencies and bandwith, we had to simulate these characteristics by controlling the rate of the packages exchanges among the nodes of the network.
+Since the experiment was not performed in a real network, real computers with their latencies and bandwidth, we had to simulate these characteristics by controlling the rate of the packages exchanges among the nodes of the network.
 
 In order to analyze the impact of latencies, we simulate real networks by implementing two basic botnet topologies: a list topology and a random binary tree topology. In both cases, the addition of a new Client into the network is decided by the Clients of the topology: a Client greedily accepts a new zombie as its own child (two in the case of binary tree and one for list) or ramdonly choose one of its children to delegate the addition in a recursive way. The goal is to simulate a balanced tree that minimizes its depth (minimizing information delay among bots) and the message passing and compare it to a topology with high latency, i.e., the list-based topology.
 
